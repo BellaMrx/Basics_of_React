@@ -8,6 +8,7 @@
  1. What is React?
  2. Prepare the use of React
  3. Start a React project
+ 4. "Hello World" in React
 
  
  
@@ -51,7 +52,16 @@ As soon as **create-react-app** has been installed, a new project can be created
     $ npx create-react-app my-project
    ```
 
+ <img src="images/React_npx.PNG" width="900">
+
+ <img src="images/React_npx2.PNG" width="900">
+
+ <img src="images/React_npx3.PNG" width="900">
+
+
 Any name can be used for "my-project". When using it for the first time, packages may still be installed. After the new React project has been created, a "my-project" folder is created with the following folder structure:
+
+ <img src="images/React_Folderstructure.PNG" width="300">
 
 | Folder            | Description |
 | ----------------- | ----------- |
@@ -79,12 +89,34 @@ A new browser window should now open with the generated React application. If no
 
 In addition to `npm start`, there is also `npm test` for running tests and `npm run build`, which creates the application for operation in a **build** folder.
 
+In VS Code: install **React Native Tools** via the extensions. And then:
+
+   ```
+    $ npx create-react-app my-project
+   ```
+   ```
+    $ cd my-project
+   ```
+   ```
+    $ npm start
+   ```
+
+ <img src="images/React_cd.PNG" width="900">
+
+ <img src="images/React_npmStart.PNG" width="900">
+
+ <img src="images/React_npmStart2.PNG" width="900">
+
+Now a web page should open automatically even with VS code:
+
+ <img src="images/React_Start.png" width="900">
+
+ Before starting with VS code, it is best to change the file format so that the code is garbled. Simply click on it and enter a different format:
+
+ <img src="images/React_changeFormat.PNG" width="500">
 
 
-
-
-
-
+## 4. "Hello World" in React
 
 
 
