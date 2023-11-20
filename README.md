@@ -7,6 +7,7 @@
  ### Contents
  1. What is React?
  2. Prepare the use of React
+ 3. Start a React project
 
  
  
@@ -35,9 +36,48 @@ You can check whether Node.js and npm are already installed in the terminal with
 When a version is displayed, you can start using React. Alternatively, the online editor [CodeSandbox](https://codesandbox.io) can also be used to learn and test React.
 
 
-##
+## 3. Start a React project
+To create a React application, I use **create-react-app**. This allows a React project to be set up with a command in the terminal (prerequisite: Node.js and npm). 
 
+This allows **create-react-app** to be installed via the terminal:
 
+   ```
+    $ npm install -g create-react-app
+   ```
+
+As soon as **create-react-app** has been installed, a new project can be created in future with the following command:
+
+   ```
+    $ npx create-react-app my-project
+   ```
+
+Any name can be used for "my-project". When using it for the first time, packages may still be installed. After the new React project has been created, a "my-project" folder is created with the following folder structure:
+
+| Folder            | Description |
+| ----------------- | ----------- |
+| node_modules      | The folder contains the necessary Node.js packages. |
+| public            | The folder contains the index.html start page. This page is displayed together with the JavaScript in the src/ directory. |
+| src               | This folder initially contains everything that is required for React. The most important file for further learning of React is app.js, which implements the React components. |
+| .gitignore        | The files and directories that are not to be checked into the Git repository are listed here. |
+| package.json      | This contains the configuration of the React application, such as start scripts and the installed dependencies.
+| Readme.md         | This contains the description of the various start scripts and a link to the online documentation |
+| package-lock.json | Data is important for npm and describes which packages are required with which version.  |
+
+To run the application with **create-react-app**, change to the directory in the terminal with `cd`:
+
+   ```
+    $ cd my-project
+   ```
+
+Now the React application can be run with :
+
+   ```
+    $ npm start
+   ```
+
+A new browser window should now open with the generated React application. If not, open the browser and enter **localhost:3000** in the address bar.
+
+In addition to `npm start`, there is also `npm test` for running tests and `npm run build`, which creates the application for operation in a **build** folder.
 
 
 
