@@ -111,7 +111,7 @@ Now a web page should open automatically even with VS code:
 
  <img src="images/React_Start.png" width="900">
 
- Before starting with VS code, it is best to change the file format so that the code is garbled. Simply click on it and enter a different format:
+Before starting with VS code, it is best to change the file format so that the code is not mutilated. Simply click on it and enter a different format:
 
  <img src="images/React_changeFormat.PNG" width="500">
 
