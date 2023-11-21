@@ -117,11 +117,56 @@ Before starting with VS code, it is best to change the file format so that the c
 
 
 ## 4. "Hello World" in React
+If you now change to the *my-project/src/* directory and open the *app.js* file there, you will find the following code:
 
+   ```
+   import logo from './logo.svg';
+   import './App.css';
 
+   function App() {
+      return (
+         <div className="App">
+            <header className="App-header">
+               <img src={logo} className="App-logo" alt="logo" />
+               <p>
+                Edit <code>src/App.js</code> and save to reload.
+               </p>
+               <a
+                className="App-link"
+                href="https://reactjs.org"
+                target="_blank"
+                rel="noopener noreferrer"
+               >
+                Learn React
+               </a>
+            </header>
+         </div>
+      );
+   }
 
+   export default App;   
+   ```
 
+If you change this code as follows:
 
+ [Complete Code](https://github.com/BellaMrx/The_Bootstrap_framework/tree/main/Examples/Part_1) --> **Examples/Part_1/...** 
 
+   ```
+   import React from 'react';
 
+   function App() {
+      return ( 
+         <div>
+            <h1> Hello World in React </h1> 
+            <p> A simple React application in execution. </p>  
+         </div >
+      );
+   }
+
+   export default App;
+   ```
+
+If the React application is now opened in the browser with localhost:3000, the browser displays this:
+
+ <img src="images/React_HelloWorld.PNG" width="900">
 
