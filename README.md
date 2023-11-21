@@ -9,6 +9,7 @@
  2. Prepare the use of React
  3. Start a React project
  4. "Hello World" in React
+ 5. JSX (JavaScript XML)
 
  
  
@@ -149,7 +150,7 @@ If you now change to the *my-project/src/* directory and open the *app.js* file 
 
 If you change this code as follows:
 
- [Complete Code](https://github.com/BellaMrx/The_Bootstrap_framework/tree/main/Examples/Part_1) --> **Examples/Part_1/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_1) --> **Examples/Part_1/...** 
 
    ```
    import React from 'react';
@@ -166,7 +167,33 @@ If you change this code as follows:
    export default App;
    ```
 
-If the React application is now opened in the browser with localhost:3000, the browser displays this:
+If the React application is now opened in the browser with localhost:3000 (if the browser is still open, it loads automatically), the browser displays this:
 
  <img src="images/React_HelloWorld.PNG" width="900">
 
+The example is very simple, but it shows that *App.js* is just a JavaScript function without parameters and returns an "HTML" (only similar) code. The JavaScript function is also called a *function component*, and the "HTML" code is called *JSX (JavaScript XML)*.
+
+If the React application is to be uploaded and run on a web host, it must first be built with `npm run built`. The files created in the *build* folder can then be uploaded to the web host and used.
+
+Note
+The index.html file created in the *build* folder cannot be opened by double-clicking because the webpacks are set up so that the static files are loaded from the root directory and not from the *build* directory. However, this can be remedied by adding the following to the *package.json* file:
+
+  ```
+   "homepage": ".",
+  ```
+like this:
+
+  ```
+   {  
+      "name": "my-project",
+      "version": "0.1.0",
+      "homepage": ".",
+      "private": true,
+      "dependencies": {
+      "@testing-library/jest-dom": "^5.17.0",
+      ...
+   },
+   ...
+  ```
+
+## 5. JSX (JavaScript XML)
