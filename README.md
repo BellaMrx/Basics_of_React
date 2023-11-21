@@ -175,7 +175,7 @@ The example is very simple, but it shows that *App.js* is just a JavaScript func
 
 If the React application is to be uploaded and run on a web host, it must first be built with `npm run built`. The files created in the *build* folder can then be uploaded to the web host and used.
 
-Note
+#### Note
 The index.html file created in the *build* folder cannot be opened by double-clicking because the webpacks are set up so that the static files are loaded from the root directory and not from the *build* directory. However, this can be remedied by adding the following to the *package.json* file:
 
   ```
