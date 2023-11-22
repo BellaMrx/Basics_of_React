@@ -10,6 +10,8 @@
  3. Start a React project
  4. "Hello World" in React
  5. JSX (JavaScript XML)
+   - 5.1. Use JSX for the UI
+   - 5.2. JSX with HTML attributes
 
  
  
@@ -118,7 +120,7 @@ Before starting with VS code, it is best to change the file format so that the c
 
 
 ## 4. "Hello World" in React
-If you now change to the *my-project/src/* directory and open the *app.js* file there, you will find the following code:
+If you now change to the *my-project/src/* directory and open the *App.js* file there, you will find the following code:
 
    ```
    import logo from './logo.svg';
@@ -171,7 +173,7 @@ If the React application is now opened in the browser with localhost:3000 (if th
 
  <img src="images/React_HelloWorld.PNG" width="900">
 
-The example is very simple, but it shows that *App.js* is just a JavaScript function without parameters and returns an "HTML" (only similar) code. The JavaScript function is also called a *function component*, and the "HTML" code is called *JSX (JavaScript XML)*.
+The example is very simple, but it shows that *App.js* is just a JavaScript function without parameters and returns an "HTML" code. The JavaScript function is also called a *function component*, and the "HTML" code is called *JSX (JavaScript XML)*.
 
 If the React application is to be uploaded and run on a web host, it must first be built with `npm run built`. The files created in the *build* folder can then be uploaded to the web host and used.
 
@@ -197,3 +199,92 @@ like this:
   ```
 
 ## 5. JSX (JavaScript XML)
+The syntax of JSX is very similar to that of HTML. With JSX, the HTML is practically written in React, it is actually a mixture of HTML and JavaScript components. JSX also supports CSS. With JSX, HTML elements can be written in JavaScript and attached to the DOM without the usual `createElement()` or `appendChild()` functions. With JSX, the HTML tags are not converted into React elements. JSX does not have to be used, but it makes it easier to write React applications when it comes to what the *user interface* (UI) should look like.
+
+
+### 5.1. Use JSX for the UI
+Here is a simple example of how flexibly JSX can be used:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_2) --> **Examples/Part_2/...** 
+
+  ```
+   import React from 'react';
+
+   const greetings = 'Hello welt';
+   const title = 'React';
+   const ptext = <p> React application during execution. </p>;
+   const expression = <p> 420 * 7 = { 420 * 7 } </p>;
+   const mlist = ( < ol >
+      <li> Item 1 </li>  
+      <li> Item 2 </li>
+      <li> Item 3 </li>  
+    </ol > );
+
+   function App() {
+      return ( 
+         <div >
+            <h1> { greetings } in { title } </h1> 
+            { ptext } { expression }
+            Enumeration list: { mlist } 
+         </div >
+      );
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_2.png" width="400">
+
+Expressions are written in curly brackets `{}` in JSX. These can be simple variables (`greetings`, `title`), properties, mathematical calculations (`expression`), longer HTML blocks between brackets `()` (`mlist`) and any other valid JavaScript expression. However, no JavaScript statements are allowed between the curly braces. JSX acts like a template language, but the full functionality of JavaScript can be used with it.
+
+JSX is automatically transpiled to JavaScript. Learning JSX is relatively easy if you accept it as HTML within the JavaScript code. An alternative to JSX would be TSX (TypeScript). JSX was developed specifically for React and later integrated into other libraries.
+
+The compiler turns JSX into JavaScript code, e.g. from one line:
+
+  ```
+   const paragraph = <p>A simple text.</p>;
+  ```
+
+From this, a compiler can create the following JavaScript code:
+
+  ```
+   let paragraph = React.createElement (
+      "p",
+      null,
+      "A simple text."
+   );
+  ```
+
+Instead of `Document.createElement`, `React.createElement` was used here, i.e. a React element or an immutable JavaScript object or virtual DOM object is returned. This virtual DOM object is first converted into an output format, such as a DOM element, when a component is rendered. In React, a distinction is made between a virtual and native DOM. This ensures that only what actually changes in the native DOM is changed and that the entire native DOM is not re-rendered, thus limiting the manipulation of the native DOM to a minimum.
+
+Another example: 
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_3) --> **Examples/Part_3/...** 
+
+  ```
+   import React from 'react';
+
+   function format_header_1(text, user) {
+      return text + ', ' + user.fname + ' ' + user.lname;
+   }
+
+   const user = {
+      fname: 'Bella',
+      lname: 'Mrx'
+   };
+
+   function App() {
+      return ( 
+         <div> 
+            <h1> { format_header_1('Welcome', user) } </h1>
+         </div>
+      );
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_3.png" width="400">
+
+With the line `<h1> { format_header_1('Welcome', user) } </h1>`, a JavaScript expression was built into JSX with the curly brackets. The function `format_header_1` with two parameters, a string and a JavaScript object `user`, is used here to assemble and return this content.
+
+
+### 5.2. JSX with HTML attributes
