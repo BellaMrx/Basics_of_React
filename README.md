@@ -10,8 +10,10 @@
  3. Start a React project
  4. "Hello World" in React
  5. JSX (JavaScript XML)
-   - 5.1. Use JSX for the UI
-   - 5.2. JSX with HTML attributes
+    - 5.1. Use JSX for the UI
+    - 5.2. JSX with HTML attributes
+    - 5.3. Case distinction
+    - 5.4. Lists with React
 
  
  
@@ -210,7 +212,7 @@ Here is a simple example of how flexibly JSX can be used:
   ```
    import React from 'react';
 
-   const greetings = 'Hello welt';
+   const greetings = 'Hello world';
    const title = 'React';
    const ptext = <p> React application during execution. </p>;
    const expression = <p> 420 * 7 = { 420 * 7 } </p>;
@@ -288,3 +290,86 @@ With the line `<h1> { format_header_1('Welcome', user) } </h1>`, a JavaScript ex
 
 
 ### 5.2. JSX with HTML attributes
+HTML attributes can also be enclosed in curly brackets:
+
+  ```
+   const primaryColor = "#008000";
+   const parapraph = <p style = {{color: primaryColor}}> Welcome to React </p>
+  ```
+
+Here, a JavaScript expression has been integrated into an HTML attribute. In JSX, the camel case notation is used, so instead of *tabindex*, as is usual in HTML, *tabIndex* must be used. The attributes `for` and `class` must not be used because these are also keywords in JavaScript. Instead, `htmlFor` and `className` must be used. 
+
+Stand-alone HTML tags must be closed with `/` (`<.../>`), as JSX follows the XML rules:
+
+  ```
+   const userInput = < input type = "text" />;
+  ```
+
+If stand-alone HTML tags are not closed correctly or if `for` is used instead of `htmlFor` out of habit, React issues an error message.
+
+#### Comments in JSX
+Comments can be noted between the curly brackets in a JavaScript expression:
+
+  ```
+   const parapraph = <p> Welcome {/*comment name*/} </p>
+  ```
+
+or within a JSX element, the comments can be noted without curly brackets:
+
+  ```
+   const parapraph = <p /*comment set color */> Welcome </p>
+  ```
+
+or comments can be noted as in JavaScript, but only at the end of the line:
+
+  ```
+   const parapraph = <p //comment set color > Welcome </p>
+  ```
+
+
+### 5.3. Case distinction
+`if-else` cannot be used within JSX. The tenary operator `?:` (`{i === 1?`true`:`false`}`) can be used for this purpose. A case distinction can be useful if an attribute or element is to be set depending on the condition.
+
+Example: [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_4) --> **Examples/Part_4/...** 
+
+  ```
+   import React from 'react';
+
+   const header_1 = true;
+
+   function isHeader() {
+      return header_1;
+   }
+   const msg = "Welcome to React";
+
+   function App() {
+      return ( 
+         <div > 
+         { isHeader() ? <h1> { msg } </h1> : <p>{msg}</p> } 
+         </div>
+      );
+   }
+   export default App;
+  ```
+
+Whether the text of the variable `msg` is displayed as `h1` heading or as `p` paragraph text depends on whether the function `isHeader()` returns `true` or `false`. This works not only for HTML elements, but also for attributes:
+
+  ```
+   const mark = true;
+
+   function isImportant() {
+      return mark;
+   }
+
+   const msg = <p style = {{ color: isImportant() ? "green" : "black" }} >
+      Welcome to React </p>; 
+  ```
+
+ <img src="images/React_part_4.png" width="400">
+
+
+### 5.4. Lists with React
+
+
+
+

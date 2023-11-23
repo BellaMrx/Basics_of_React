@@ -1,6 +1,6 @@
 import React from 'react';
 
-const greetings = 'Hello welt';
+const greetings = 'Hello world';
 const title = 'React';
 const ptext = <p> React application during execution. </p>;
 const expression = <p> 420 * 7 = { 420 * 7 } </p>;
