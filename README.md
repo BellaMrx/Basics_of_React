@@ -14,6 +14,7 @@
     - 5.2. JSX with HTML attributes
     - 5.3. Case distinction
     - 5.4. Lists with React
+    - 5.5. Render elements
 
  
  
@@ -369,6 +370,85 @@ Whether the text of the variable `msg` is displayed as `h1` heading or as `p` pa
 
 
 ### 5.4. Lists with React
+The JavaScript method `map`, which is defined for arrays, is usually used to process lists. 
+
+An example with `map` in pure JavaScript code:
+
+  ```
+   const values = [2, 4, 42, 7, 420];
+
+   const total = values.map(function(value) {
+      return value * value;
+   });
+
+   console.log(total);
+  ```
+
+Here, the individual values of `values` are run through using `map()`, each placed in `value` and then multiplied.
+
+A complete example with a list and JSX: 
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_5) --> **Examples/Part_5/...** 
+
+  ```
+   import React from 'react';
+
+   const recommendEbooks = [{
+         title: 'JavaScript - DOM - Document-Object-Model',
+         url: 'https://github.com/BellaMrx/DOM_Document-Object-Model',
+         author: 'Bella Mrx',
+         id: 3,
+      }
+      ...
+   ];
+
+   function App() {
+      return ( 
+         <div>
+            <h1> Further literature about JavaScript </h1> 
+            <ul> {
+               recommendEbooks.map(function(book) {
+                  return <li key = { book.id } > <a href = { book.url } >
+                  { book.title } < /a> (by {book.author}) </li> ;
+               })}
+            </ul>
+         </div>
+      );
+   }
+   export default App;
+  ```
+
+To display all `titles` in the `recommendEbooks` list with JSX, proceed as follows:
+
+  ```
+   recommendEbooks.map(function(book) {
+      return <div > { book.title } < /div>;
+   })}
+  ```
+
+The other data such as `url` and `author` can also be accessed in the same way. The list element `id` has been added as a key attribute for React. This allows React to identify the individual list elements. This identification is required so that React can establish a connection between two instances in the virtual DOM: 
+
+  ```
+   recommendEbooks.map(function(book) {
+      return <div key = { book.id } > { book.title } < /div>;
+   })}  
+  ```
+
+The key attribute `key` is used to assign a value in the list that is unique. This value should not be derived from the index of the element in the array.
+
+ <img src="images/React_part_5.png" width="500">
+
+
+### 5.5. Render elements
+
+
+
+
+
+
+
+
+
 
 
 
