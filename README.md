@@ -15,9 +15,8 @@
     - 5.3. Case distinction
     - 5.4. Lists with React
     - 5.5. Render elements
+    - 5.6. React components and props
 
- 
- 
  
 -------------------------------------------------------
 
@@ -381,7 +380,7 @@ An example with `map` in pure JavaScript code:
       return value * value;
    });
 
-   console.log(total);
+   console.log(total);     //Output: [ 4, 16, 1764, 49, 176400 ]
   ```
 
 Here, the individual values of `values` are run through using `map()`, each placed in `value` and then multiplied.
@@ -418,7 +417,7 @@ A complete example with a list and JSX:
    export default App;
   ```
 
-To display all `titles` in the `recommendEbooks` list with JSX, proceed as follows:
+To display all `title` in the `recommendEbooks` list with JSX, proceed as follows:
 
   ```
    recommendEbooks.map(function(book) {
@@ -440,12 +439,50 @@ The key attribute `key` is used to assign a value in the list that is unique. Th
 
 
 ### 5.5. Render elements
+In the previous examples, you did not have to worry about this, this was due to the command `npx create-react-app my-project` (([Chapter 3](https://github.com/BellaMrx/Basics_of_React#3-start-a-react-project)). The React command for rendering HTML on a web page is `ReactDOM.render()`. 
+
+Here is a shortened version of *my-project/src/index.js*:
+
+  ```
+   import React from 'react';
+   import ReactDOM from 'react-dom';   // for ReactDOM.render()
+
+   import App from './App';
 
 
+   ReactDOM.render (
+      <App />
+      document.getElementById('root')
+   ); 
+  ```
+
+The function `ReactDOM.render()` expects two arguments. The first element is the JSX element to be rendered, which is the instance of the app `<App />`, which is the `function App()` of *my-project/src/App.js*. However, it is also possible to pass this without an instance:
+
+  ```
+   ReactDOM.render (
+      <p> A simple text </p>
+      document.getElementById('root')
+   ); 
+  ```
+
+The second argument is used to specify where the JSX element to be rendered is to be inserted. In this example, it is an element with `id = root"`, which is located in the HTML file *my-project/public/index.html*.
+
+  ```
+   <!DOCTYPE html>
+   <html lang="en">
+      <head>
+         <title>React App</title>
+      </head>
+      <body>
+         <div id="root"></div>
+      </body>
+   </html>
+  ```
+
+In most cases, `ReactDOM.render()` is only used once when the page is called up; another `render()` call is not necessary, as further rendering is then usually carried out by the components.
 
 
-
-
+### 5.6. React components and props
 
 
 
