@@ -14,8 +14,9 @@
     - 5.2. JSX with HTML attributes
     - 5.3. Case distinction
     - 5.4. Lists with React
-    - 5.5. Render elements
-    - 5.6. React components and props
+ 6. Render elements
+ 7. React components and props
+    - 7.1. Functional components
 
  
 -------------------------------------------------------
@@ -199,6 +200,7 @@ like this:
    },
    ...
   ```
+
 
 ## 5. JSX (JavaScript XML)
 The syntax of JSX is very similar to that of HTML. With JSX, the HTML is practically written in React, it is actually a mixture of HTML and JavaScript components. JSX also supports CSS. With JSX, HTML elements can be written in JavaScript and attached to the DOM without the usual `createElement()` or `appendChild()` functions. With JSX, the HTML tags are not converted into React elements. JSX does not have to be used, but it makes it easier to write React applications when it comes to what the *user interface* (UI) should look like.
@@ -438,8 +440,8 @@ The key attribute `key` is used to assign a value in the list that is unique. Th
  <img src="images/React_part_5.png" width="500">
 
 
-### 5.5. Render elements
-In the previous examples, you did not have to worry about this, this was due to the command `npx create-react-app my-project` (([Chapter 3](https://github.com/BellaMrx/Basics_of_React#3-start-a-react-project)). The React command for rendering HTML on a web page is `ReactDOM.render()`. 
+## 6. Render elements
+In the previous examples, you did not have to worry about this, this was due to the command `npx create-react-app my-project` ([Chapter 3](https://github.com/BellaMrx/Basics_of_React#3-start-a-react-project)). The React command for rendering HTML on a web page is `ReactDOM.render()`. 
 
 Here is a shortened version of *my-project/src/index.js*:
 
@@ -482,7 +484,29 @@ The second argument is used to specify where the JSX element to be rendered is t
 In most cases, `ReactDOM.render()` is only used once when the page is called up; another `render()` call is not necessary, as further rendering is then usually carried out by the components.
 
 
-### 5.6. React components and props
+## 7. React components and props
+The most important concept of React is components. A component is an independent and reusable code. Components have the same purpose as JavaScript functions, except that they can be used anywhere in JSX, similar to HTML elements. There are two types of components in React: function components and class components.
+
+Such components are simple parts of the UI (user interface). When an application is developed in React, several such components are usually developed independently of each other and then combined to form a complex UI. A React application has at least one component, which is called the root component.
+
+So far, only the `App()` component in *App.js* has been used here, which was rendered in *index.js* as follows:
+
+  ```
+   ReactDOM.render (
+      <React.StrictMode>
+         <App />
+      </React.StrictMode>,
+      document.getElementById('root')
+   );
+  ```
+
+Everything has been done in this app component here, but a React application usually has higher requirements in practice, which increases the amount of code. To keep things clear, the main component is usually divided into several sub-components. For this purpose, *props* (properties) are often used. Such props are similar to function arguments in JavaScript and are often given to the components as external properties.
+
+Here in the example the `<React.StrictMode>` mode was used, this is very helpful and ensures that errors, warnings of page effects or outdated React constructs (deprecated) are displayed on the console or web browser. It is recommended to always use this mode by wrapping the application with it. If the application is built with `npm run build`, the code is removed to keep the code lightweight.
+
+
+### 7.1. Functional components
+
 
 
 
