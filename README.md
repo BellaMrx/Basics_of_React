@@ -17,6 +17,7 @@
  6. Render elements
  7. React components and props
     - 7.1. Functional components
+    - 7.2. Class components
 
  
 -------------------------------------------------------
@@ -506,7 +507,124 @@ Here in the example the `<React.StrictMode>` mode was used, this is very helpful
 
 
 ### 7.1. Functional components
+A simple functional component:
 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6) --> **Examples/Part_6/...** 
+
+  ```
+   import React from 'react';
+
+   function App() {
+     return ( 
+      <div>
+         <h1> Login </h1> 
+         <InputT name = "Firstname" / >
+         <InputT name = "Lastname" / >
+         <InputT name = "E-Mail" / >
+      </div>
+     );
+   }
+
+   function InputT(props) {
+     return ( 
+      <div> 
+         <label> { props.name } </label> : 
+         <input type = "text" placeholder = { props.name } />
+      </div>
+     );
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_6.png" width="400">
+
+A simple function component `InputT(props)` was created here, which can be used like an HTML element with `<InputT name="Firstname">`. When React recognizes a custom component, all JSX attributes are passed as a single object, here "props", the name for which can be chosen by the user (called "props" for demonstration purposes only).
+When the React application is executed, the `InputT` component is rendered three times within the app component, which shows how components refer to other components in the output and can therefore be reused at any time.
+Custom components such as `<InputT />` or `<Comment />` must start with a capital letter, in React components with lower case letters such as `<div>` are HTML elements of the DOM.
+
+In the app component, everything was packed between `<div>` and `</div>`, if this is not the case, React throws an error message. There is a rule that the HTML code for JSX fragments must be packed into a top-level element:
+
+  ```
+   function InputT(props) {
+     return ( 
+      <div> 
+         <label> { props.name } </label> : 
+         <input type = "text" placeholder = { props.name } />
+      </div>
+     );
+   }
+  ```
+
+The list example from [Part_5](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_5) could then look like this as a function component:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) --> **Examples/Part_7/...** 
+
+  ```
+   import React from 'react';
+
+   const recommendEbooks = [{
+      title: 'JavaScript - DOM - Document-Object-Model',
+      url: 'https://github.com/BellaMrx/DOM_Document-Object-Model',
+      author: 'Bella Mrx',
+      id: 3,
+    },
+     ...
+    ];
+
+   function App() {
+     return (
+      <div>
+         <h1> My guides </h1>
+         <ul>
+            <Recommendation / >
+         </ul>
+      </div>
+     );
+   }
+
+   const Recommendation = () =>
+     recommendEbooks.map(book => (
+      <li key = { book.id } > < MakeLink link = { book } / >
+            by { book.author }) </li > 
+   ));
+
+   const MakeLink = props => 
+     <a href = { props.link.url } > { props.link.title } </a>
+
+   export default App;
+  ```
+
+ <img src="images/React_part_7.png" width="500">
+
+In practice, it is advisable to split a component into further components, e.g. to outsource the setting of the hyperlink `<a>` as a further component. The advantage of this is that a universal component is created that can also be used in other components:
+
+  ```
+   ...
+
+   function Recommendation() {
+      return recommendEbooks.map(function (book) {
+         return ( <li key = { book.id } > < MakeLink link = { book } / >
+                  by { book.author }) </li > );
+      });
+   }
+
+
+   function MakeLink(props) {
+      return (<a href = { props.link.url } > { props.link.title } </a>);
+   }
+
+   ...
+  ```
+
+This example is the same as in [Part_7](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) only as a function declaration instead of an arrow function declaration. Function components can also be declared with arrow functions, as in JavaScript:
+
+  ```
+   function () {...}    // function declaration
+   const () => {...}    // arrow function declaration
+  ```
+
+
+### 7.2. Class components
 
 
 
