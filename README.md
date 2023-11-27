@@ -18,6 +18,7 @@
  7. React components and props
     - 7.1. Functional components
     - 7.2. Class components
+    - 7.3. Props
 
  
 -------------------------------------------------------
@@ -625,6 +626,77 @@ This example is the same as in [Part_7](https://github.com/BellaMrx/Basics_of_Re
 
 
 ### 7.2. Class components
+In the early days of React, class components were preferably used to create larger projects. Since the introduction of hooks in React, however, function components have also been used more and more frequently. 
+
+The first example shows the function component `InputT` (from [Part_6](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6)) as a class component that is outsourced to a separate file:
+
+To convert a function component into a class component, the following is necessary:
+1. the components are extended by the React-`Compoment` class with `extends Component`.
+2. an empty `render()` method is created in the component.
+3. the content of the component is written inside the `render()` method.
+4. if `props` is used, `this.props` is used
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/InputT.js...** 
+
+  ```
+   import React, { Component } from 'react';
+
+   class InputT extends Component {
+      render() {
+         return ( 
+           <div>
+             <label> { this.props.name } </label> :  
+             <input type = "text" placeholder = { this.props.name }/> 
+           </div>
+         );
+      }
+   }
+   export default InputT;
+  ```
+
+The `React` and `Component` classes were imported first. `Component` is a base class that is required to create the class component. The `Component` base class is practically extended with the `InputT` class. The class name should begin with a capital letter, it is also advisable to name the file (*InputT.js*) with the class name (`InputT`), as this makes it easier to search for errors during debugging.
+Various methods can also be added to the class, but the most important and only method in this example is `render()`. This method renders the JSX code in the browser. With `export default` the class is exported, which extends the base class `Component`. The *InputT.js* file is saved in the *src* directory.
+
+Only the class components of the *InputT.js* file now need to be imported into *App.js*:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/App.js...**
+
+  ```
+   import React from 'react';
+   import InputT from './InputT';
+
+   function App() {
+      return (
+         <div>
+            <h1> Login </h1>
+            <InputT name = "First name" />
+            <InputT name = "Last name" />
+            <InputT name = "E-Mail" />
+         </div>
+      );
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_8.png" width="500">
+
+
+In React, it has become established to create only one component per file, as this allows you to maintain an overview. When naming the components, the Pascal case notation has become established, i.e. the first letter is always capitalized and if further words are added, this also begins with a capital letter (`InputText`). For the file extension, *.jsx* is often used instead of *.js* to make the use of JSX within the component clear.
+
+
+### 7.3. Props
+Props are arguments that are passed to React components. They are always passed to a component in the same way as an HTML attribute. Props are almost like function arguments in JavaScript and attributes in HTML. 
+ 
+In [Part_7](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) a global variable `recommendEbooks` was used, in practice the possibilities are limited. The more optimal solution would be to use *props*:
+
+
+
+
+
+
+
+
+
 
 
 
