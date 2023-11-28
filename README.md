@@ -19,6 +19,7 @@
     - 7.1. Functional components
     - 7.2. Class components
     - 7.3. Props
+ 8. State management in React
 
  
 -------------------------------------------------------
@@ -689,11 +690,73 @@ Props are arguments that are passed to React components. They are always passed 
  
 In [Part_7](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) a global variable `recommendEbooks` was used, in practice the possibilities are limited. The more optimal solution would be to use *props*:
 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_9) --> **Examples/Part_9/...** 
+
+  ```
+   import React from 'react';
+
+   const App = () => {
+     const recommendEbooks = [{
+      title: 'JavaScript - DOM - Document-Object-Model',
+      url: 'https://github.com/BellaMrx/DOM_Document-Object-Model',
+      author: 'Bella Mrx',
+      id: 3,
+      },
+      ...
+      ];
+ 
+      return ( 
+         <div>
+            <h1> My guides </h1>
+            <ul>
+               <Recommendation list = { recommendEbooks } / > 
+            </ul>
+         </div>
+      );
+   }
+
+   const Recommendation = props =>
+     props.list.map(book => ( 
+      <li key = { book.id } > < MakeLink link = { book } / >
+        by { book.author }) </li> ));
+
+   const MakeLink = props => 
+     <a href = { props.link.url } > { props.link.title } </a>
+
+   export default App;
+  ```
+
+ <img src="images/React_part_9.png" width="500">
+
+Here *Props* were used to pass the `recommendEbooks` array and the `Recommendation` function component, but the global scope is no longer used. *Props* cannot be changed, they are read-only. If an attempt is made to change the value, an error is thrown.
+
+On the other hand, if a class component is to be created and used with a constructor (constructor()), the props should always be passed as an argument to the constructor and to the React component method `super()`:
+
+  ```
+   class Article extends React.Component {
+     constructor(props) {
+       super(props);
+     }
+     render() {
+       return (
+         <div>
+           <label>{this.props.name}</label>
+           <button>+</button>
+           <button>-</button>
+             {this.props.instock === "false"
+               ? " (Not in stock)"
+               : " (Available)"}
+         </div>
+       );
+     }
+   }
+   ...
+  ```
+
+The `constructor()` method is called as the first method when the component is initiated to set up the initial state of the component with the initial values. This is the reason why the `constructor()` method should be called with the props as an argument. `super(props)` initiates the parent's constructor method, thus allowing the component to inherit from the parent ("React.Component`).
 
 
-
-
-
+## 8. State management in React
 
 
 
