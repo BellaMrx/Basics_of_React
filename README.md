@@ -20,6 +20,7 @@
     - 7.2. Class components
     - 7.3. Props
  8. State management in React
+   - 8.1. Changing the `state` object
 
  
 -------------------------------------------------------
@@ -757,13 +758,81 @@ The `constructor()` method is called as the first method when the component is i
 
 
 ## 8. State management in React
+React components have a built-in state object that can store properties unique to the component, often referred to as a local state. When the state object changes, the React component is re-rendered. The `state` objects allow interaction, whereas the props are used for the information flow within the component tree. The state is similar to the props, except that the state is private and is controlled exclusively by the (class) component.
+
+This example demonstrates a counter that can be incremented and decremented within a simple class component with the identifier `Article`. Because the local state can only be used with the class component, it is necessary to create a class.
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/Article.jsx...** 
+
+  ```
+   import React from "react";
+  
+   class Article extends React.Component {
+     constructor(props) {
+       super(props);
+       this.state = {
+         counter: 0,
+       };
+     }
+     render() {
+       return (
+         <div>
+           <label>{this.props.name}</label>
+           <span> : {this.state.counter} </span>
+           <button>+</button>
+           <button>-</button>
+           <span>
+             {this.props.instock === "false"
+               ? " (Not in stock)"
+               : " (Available)"}
+           </span>
+         </div>
+       );
+     }
+   }
+   export default Article;
+  ```
+
+The `state` object (here: `state.this`) is initialized in the constructor. The `state` object only has one property with `counter`, but any number of properties can be used. The *Article.jsx* file is saved in the */src* folder together with the *App.js*, which then looks like this:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/App.js...** 
+
+  ```
+   import React from "react";
+   import Article from "./Article";
+
+   const App = () => {
+       return (
+         <div >
+           <Article name = "Article 1" instock = "true" / >
+           <Article name = "Article 2" instock = "false" / >
+           <Article name = "Article 3" instock = "true" / >
+         </div>
+       );
+   };
+   export default App;
+  ```
+
+ <img src="images/React_part_10.png" width="500">
 
 
+#### React Hooks as an alternative
+The feature with the local state no longer has to be used only with class components. With React Hooks (since version 16.8.), there is an alternative in which state and other React functions can also be used as function components. The trend is moving more towards hooks, but you should still familiarize yourself with the concept of class components so that you can better understand what is behind the hooks later on.
+
+#### Use the `state` object in the class component
+In the *Article.jsx* example, a `state` object was used in the component with `this.state.propertyname`:
+
+  ```
+   ...
+   <label>{this.props.name}</label>
+   <span> : {this.state.counter} </span>
+   <button>+</button>
+   ...
+  ```
+
+As with the props, access is via `this` and then the `state` object, followed by the identifier of the `counter` property. For all new `Article` class components, the initial addition of `counter` has been set to 0.
 
 
-
-
-
-
+### 8.1. Changing the `state` object
 
 
