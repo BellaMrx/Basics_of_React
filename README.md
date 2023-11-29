@@ -21,6 +21,7 @@
     - 7.3. Props
  8. State management in React
    - 8.1. Changing the `state` object
+   - 8.2. Children props
 
  
 -------------------------------------------------------
@@ -834,5 +835,103 @@ As with the props, access is via `this` and then the `state` object, followed by
 
 
 ### 8.1. Changing the `state` object
+The only place where the individual properties of `this.state` can be set is in the constructor. To subsequently change the value of the `state` object, the `this.setState()` method must be used. If the value in a `state` object changes, the component is rendered according to the new value:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
+
+  ```
+   ...
+
+   class Article extends React.Component {
+     constructor(props) {
+       super(props);
+       this.state = {
+         counter: 0,
+         stock: this.props.instock,
+       };
+     }
+
+     incrementCounter = () => {
+       if (this.state.stock === "true" && this.state.counter < 9)
+         this.setState({ counter: this.state.counter + 1 });
+       if (this.state.counter >= 9)
+         this.setState({ stock: (this.state.stock = "false") });
+     };
+
+     decrementCounter = () => {
+       if (this.state.counter && this.state.counter <= 9) {
+         this.setState({ counter: this.state.counter - 1 });
+         this.setState({ stock: (this.state.stock = "true") });
+       }
+     };
+
+     render() {
+       return (
+         <div>
+           {this.props.children}
+           <label>{this.props.name}</label>
+           <span> : {this.state.counter} </span>
+           <button onClick={this.incrementCounter}>+</button>
+           <button onClick={this.decrementCounter}>-</button>
+           <span>
+             {this.state.stock === "false" 
+                ? " (Not in stock)" : " (Available)"}
+           </span>
+         </div>
+       );
+     }
+   }
+   ...
+  ```
+
+Here, a handler for `onClick` has been set up within `<button>`, which is triggered when the button is clicked. For the plus button, `this.incrementCounter()` is called and for the minus button, `this.decrementCounter` is called. According to the callback method, the value for `counter` is then increased or decreased by 1 via `this.setState()`.
+The value of the `instock` prop was passed to the `state` object `stock`, as the props are read-only and cannot be changed. The status of `this.state.stock` is used to output whether items are still in stock or not.
+
+  ```
+   ...
+     incrementCounter = () => {
+       if (this.state.stock === "true" && this.state.counter < 9)
+         this.setState({ counter: this.state.counter + 1 });
+       if (this.state.counter >= 9)
+         this.setState({ stock: (this.state.stock = "false") });
+     };
+   ...
+  ```
+
+Here, an `if` query as to whether `this.state.stock` is `true` is combined with the logical AND operator `&&` to determine whether the value of `this.state.counter` increases by 1. If this is no longer the case, the status of `this.state.stock` is set to `false` with `this.setState` and the state of the component is re-rendered.
+
+  ```
+   ...
+      <span>
+         {this.state.stock === "false" 
+         ? " (Not in stock)" : " (Available)"}
+      </span>
+   ...
+  ```
+
+Here the output `"(Available)"` becomes `"(Not in stock)"`. For each component, a maximum of 9 elements of an item are in stock. If the value of `counter` equals 9, the value of `this.state.stock` is set to `false`, which means that no further incrementation is possible. The example can also be extended by simply adding another property to the `state` object from the static value of 9 items in order to allow a maximum number of items individually for each item.
+
+With `this.decrementCounter()` something similar happens, where it is checked whether the value of `counter` is not equal to 0 and less than or equal to 9. Only if the operation is true, `counter` is reduced by 1 with `this.setState()` and the property of `this.state.stock` becomes `true`:
+
+  ```
+   ...
+     decrementCounter = () => {
+       if (this.state.counter && this.state.counter <= 9) {
+         this.setState({ counter: this.state.counter - 1 });
+         this.setState({ stock: (this.state.stock = "true") });
+       }
+     };
+   ...
+  ```
+
+If the property of a `state` object is to be changed by a component, the `setState()` method should always be used to ensure that the component is refreshed and rendered.
+
+
+### 8.2. Children props
+
+
+
+
+
 
 
