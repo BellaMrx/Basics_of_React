@@ -22,6 +22,7 @@
  8. State management in React
    - 8.1. Changing the `state` object
    - 8.2. Children props
+   - 8.3. Events and their handlers
 
  
 -------------------------------------------------------
@@ -796,7 +797,7 @@ This example demonstrates a counter that can be incremented and decremented with
 
 The `state` object (here: `state.this`) is initialized in the constructor. The `state` object only has one property with `counter`, but any number of properties can be used. The *Article.jsx* file is saved in the */src* folder together with the *App.js*, which then looks like this:
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/App.js...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/App.js...** 
 
   ```
    import React from "react";
@@ -837,7 +838,7 @@ As with the props, access is via `this` and then the `state` object, followed by
 ### 8.1. Changing the `state` object
 The only place where the individual properties of `this.state` can be set is in the constructor. To subsequently change the value of the `state` object, the `this.setState()` method must be used. If the value in a `state` object changes, the component is rendered according to the new value:
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
 
   ```
    ...
@@ -928,10 +929,56 @@ If the property of a `state` object is to be changed by a component, the `setSta
 
 
 ### 8.2. Children props
+This example shows how child or sub-props can be transferred to the components and used:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/App.js...** 
+
+  ```
+   ...
+      <Article name = "Article 1" instock = "true" >
+        <h2> Article 1 </h2>
+      </Article>
+      <Article name = "Article 2" instock = "false" >
+        <h2> Article 2 </h2>
+      </Article>
+      <Article name = "Article 3" instock = "true" >
+        <h2> Article 3 </h2>
+      </Article>
+   ...
+  ```
+
+To access the `h2` elements in the class components here, you can use the prop provided for this with `this.props.children`:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
+
+  ```
+   ...
+   class Article extends React.Component {
+     constructor(props) {
+       super(props);
+       this.state = {
+         ...
+       };
+     }
+
+   ...
+
+     render() {
+       return (
+         <div>
+           {this.props.children}
+           <label>{this.props.name}</label>
+           ...
+         </div>
+       );
+     }
+   }
+   ...
+  ```
+
+ <img src="images/React_part_11.png" width="500">
 
 
-
-
-
+### 8.3. Events and their handlers
 
 
