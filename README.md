@@ -22,7 +22,7 @@
  8. State management in React
    - 8.1. Changing the `state` object
    - 8.2. Children props
-   - 8.3. Events and their handlers
+ 9. Events and their handlers
 
  
 -------------------------------------------------------
@@ -979,6 +979,6 @@ To access the `h2` elements in the class components here, you can use the prop p
  <img src="images/React_part_11.png" width="500">
 
 
-### 8.3. Events and their handlers
+## 9. Events and their handlers
 
 
