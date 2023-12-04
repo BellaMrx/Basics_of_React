@@ -1019,7 +1019,7 @@ A simple example, with a message box that is displayed as soon as the button is 
    export default App;
   ```
 
- <img src="images/React_part_12.png" width="900">
+ <img src="images/React_part_12.PNG" width="900">
 
 The special feature of `this` must be pointed out here. It is not typical for React, but for JavaScript, but this can be confusing for beginners: When passing in JSX, the event method must be bound to the class with `this` (here: `this.eventButton`). In JavaSript, class methods are not bound by default. This binding can be done with the `bind()` method within the constructor or, as in the example, using the arrow function. If `eventButton = () =>` is changed to `eventButton()`, the output of `this` in the message box will be `undefined`.
 
@@ -1051,7 +1051,7 @@ If parameters are to be passed to the event handler, the `bind()` method or an (
    export default App;
   ```
 
- <img src="images/React_part_13.png" width="900">
+ <img src="images/React_part_13.PNG" width="900">
 
 When the button is pressed, a simple string is passed to the event handler and output in a message box.
 
