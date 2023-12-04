@@ -23,6 +23,8 @@
    - 8.1. Changing the `state` object
    - 8.2. Children props
  9. Events and their handlers
+   - 9.1. Pass arguments to event handler
+ 10. Life cycle of components
 
  
 -------------------------------------------------------
@@ -980,5 +982,78 @@ To access the `h2` elements in the class components here, you can use the prop p
 
 
 ## 9. Events and their handlers
+React has the same events such as `click`, `change`, `mouseover` etc. that we already know from HTML. To be able to use these events, the camel case notation must be used. In React, `onclick` becomes `onClick` and the event handler must be placed in curly brackets `{}`:
+
+usual notation:
+  ```
+   onclick = "handleEvent()"
+  ```
+
+in React with JSX:
+  ```
+   onClick = {handleEvent}
+  ```
+
+A simple example, with a message box that is displayed as soon as the button is clicked:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_12) --> **Examples/Part_12...** 
+
+  ```
+   import React, { Component } from "react";
+
+   class App extends Component {
+       eventButton = () => {
+           alert("Button has been pressed! -> " + this);
+       };
+       render() {
+           return ( 
+             <div>
+               <h1> Trigger events in React </h1> 
+               <button onClick = { this.eventButton } >
+               Trigger event
+               </button>
+             </div>
+           );
+       }
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_12.png" width="900">
+
+The special feature of `this` must be pointed out here. It is not typical for React, but for JavaScript, but this can be confusing for beginners: When passing in JSX, the event method must be bound to the class with `this` (here: `this.eventButton`). In JavaSript, class methods are not bound by default. This binding can be done with the `bind()` method within the constructor or, as in the example, using the arrow function. If `eventButton = () =>` is changed to `eventButton()`, the output of `this` in the message box will be `undefined`.
 
 
+### 9.1. Pass arguments to event handler
+If parameters are to be passed to the event handler, the `bind()` method or an (anonymous) arrow function can also be used:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_13) --> **Examples/Part_13/App.js...** 
+
+  ```
+   import React, { Component } from "react";
+
+   class App extends Component {
+     eventButton = (args) => {
+       alert(args + " : " + this);
+     };
+     render() {
+       return ( 
+         <div>
+           <h1> Trigger events in React </h1>
+           <button onClick = {
+               () => this.eventButton("One argument") 
+             } > Trigger event </button>
+         </div>
+       );
+     }
+   }
+
+   export default App;
+  ```
+
+ <img src="images/React_part_13.png" width="900">
+
+When the button is pressed, a simple string is passed to the event handler and output in a message box.
+
+
+## 10. Life cycle of components
