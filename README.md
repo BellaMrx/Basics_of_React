@@ -25,6 +25,7 @@
  9. Events and their handlers
    - 9.1. Pass arguments to event handler
  10. Life cycle of components
+   - 10.1. Mounting
 
  
 -------------------------------------------------------
@@ -1057,3 +1058,46 @@ When the button is pressed, a simple string is passed to the event handler and o
 
 
 ## 10. Life cycle of components
+This topic is very helpful and important to better understand React. There are three sections to a component:
+
+ - Mounting: This is where the component is created and integrated into the application, making it visible, i.e. the element is practically inserted into the DOM.
+ - Updating: This cycle describes the time during which the component is visible and can be interacted with by the user. An update is carried out when the component is adapted, from the outside to the props and from the inside to the state.
+ - Unmounting: The last cycle is triggered when the component is removed from the DOM.
+
+In each of these lifecycles, different built-in methods are available that can be implemented and executed as soon as the component is in the corresponding cycle. These methods are also referred to as *lifecycle hooks*.
+
+The next example shows a music playlist from which individual elements can be removed. For this example, a music database was created/simulated here *songList.js*, which contains an array of the individual song titles with ID, the title, the interpreter and the genre. The only function included here is `getPlaylist()`, which returns the complete array with the playlist:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14) --> **Examples/Part_14** 
+
+  ```
+   const songs = [{
+       _id: 1234,
+       song: "Stairway To Heaven",
+       interpreter: "Led Zeppelin",
+       genre: "Rock",
+   },
+   {
+       _id: 1235,
+       song: "Blinding Lights",
+       interpreter: "The Weeknd",
+       genre: "Pop",
+   },
+    ...
+   ];
+
+   export function getPlaylist() {
+   return songs;
+   }
+  ```
+
+##### ! Note - constructor and other lifecycle methods are executed twice
+During execution, the index.js file should be adapted later if necessary and the `<React.StrictMode>` removed to ensure that the constructors are "pure". This double execution only affects the development version. In production mode (`npm run build`) the methods are not implemented twice.
+
+
+### 10.1. Mounting
+
+
+
+
+
