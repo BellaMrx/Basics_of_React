@@ -1068,7 +1068,7 @@ In each of these lifecycles, different built-in methods are available that can b
 
 The next example shows a music playlist from which individual elements can be removed. For this example, a music database was created/simulated here *songList.js*, which contains an array of the individual song titles with ID, the title, the interpreter and the genre. The only function included here is `getPlaylist()`, which returns the complete array with the playlist:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14) --> **Examples/Part_14** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14) --> **Examples/Part_14/src/songList.js** 
 
   ```
    const songs = [{
@@ -1091,11 +1091,142 @@ The next example shows a music playlist from which individual elements can be re
    }
   ```
 
-##### ! Note - constructor and other lifecycle methods are executed twice
+The following examples in this chapter refer to this music playlist.
+
+#### ! Note - constructor and other lifecycle methods are executed twice
 During execution, the index.js file should be adapted later if necessary and the `<React.StrictMode>` removed to ensure that the constructors are "pure". This double execution only affects the development version. In production mode (`npm run build`) the methods are not implemented twice.
 
 
 ### 10.1. Mounting
+React contains four built-in methods that are called in the following order when a component is mounted:
+ 1. `constructor()` 
+ 2. `getDerivedStateFromProps()`
+ 3. `render()`
+ 4. `componentDidMount()`
+
+The `render()` method is always called. The other three methods are optional and are called when they are defined.
+
+#### `constructor()`
+This method is the first to be called when the component is initiated. Therefore, it is the ideal place to initialize the local `state` object with values. The `constructor()` method is called with the props as argument. Only within the constructor, the local `state` properties can be set directly without using the `setState` method. The `super()` method is also written with the props as an argument in the constructor, which also initiates the base classes.
+
+#### `getDerivedStateFromProps()`
+This method is called shortly before the element is rendered in the domain; it is also possible here to initialize the local `state` object with the props. The props and the local state can be passed as arguments. The return value is the `state` object with the changes or `null` if the state is returned unchanged. This method is rarely used in practice.
+
+#### `render()`
+The purpose of the function is to display the specified HTML code within the specified HTML element; without this method, the component cannot be displayed. The return value is a JSX element that is to be rendered.
+
+#### `componentDidMount()`
+This example now refers to the music playlist [Complete Code: Part_14/src/songList.js](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14), which logs and demonstrates the complete mounting process via `console.log`. First, the code of the parent component `App` of the *App.jsx* file:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14) --> **Examples/Part_14/src/App.js** 
+
+  ```
+   import React, { Component } from "react";
+   import Songs from "./Songs";
+
+   class App extends Component {
+       state = {};
+       constructor(props) {
+           super(props);
+           console.log("App - constructor() is called");
+       }
+       componentDidMount() {
+           console.log("App - componentDidMount() is called");
+       }
+       render() {
+           console.log("App - render()");
+           return (
+             <div> { " " } 
+               <Songs playlist = "MyPlaylist" />
+             </div>
+           );
+       }
+   }
+   export default App;
+
+  ```
+
+And the code for the child component of `App`, the `Songs` component:
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_14) --> **Examples/Part_14/src/Songs.jsx** 
+
+  ```
+   import React, { Component } from "react";
+   import { getPlaylist } from "./songList";
+
+   class Songs extends Component {
+     constructor(props) {
+       console.log("Songs - constructor() is called");
+       super(props);
+       this.state = {
+         songs: getPlaylist(),
+         playlist: "",
+       };
+     }
+
+     componentDidMount() {
+       console.log("Songs - componentDidMount() is called");
+     }
+
+     static getDerivedStateFromProps(props, state) {
+       console.log("Songs - getDerivedStateFromProps() is called");
+       if (props.playlist !== state.playlist) return { playlist: props.playlist };
+       else return null;
+       // or directly in state: playlist: this.props.playlist,
+     }
+
+     handleRemoveSong = (song) => {
+       const songs = this.state.songs.filter((s) => s._id !== song._id);
+       this.setState({ songs });
+     };
+
+     render() {
+       console.log("Songs - render() is called");
+       return (
+         <div>
+           <h2>{this.state.playlist}'s Playlist</h2>
+           <table>
+             <thead>
+               <tr>
+                 <th>Song</th>
+                 <th>Interpret</th>
+                 <th>Genre</th>
+                 <th></th>
+               </tr>
+             </thead>
+             <tbody>
+               {this.state.songs.map((song) => (
+                 <tr key={song._id}>
+                   <td>{song.song}</td>
+                   <td>{song.interpreter}</td>
+                   <td>{song.genre}</td>
+                   <td>
+                     <button onClick={() => this.handleRemoveSong(song)}>
+                     Remove
+                     </button>
+                   </td>
+                 </tr>
+               ))}
+             </tbody>
+           </table>
+         </div>
+       );
+     }
+   }
+   export default Songs;   
+  ```
+
+ <img src="images/React_part_14.PNG" width="900">
+
+In the connector, the complete array is passed to the local state variable `songs` using the imported function `getPlaylist()` from *songList.js*. In the built-in method `getDerivedStateFromProps()`, the passed prop `playlist` was passed to the state variable `playlist` of the same name for demonstration purposes. However, it is first checked whether the value has changed. This transfer of the prop to the local state could also have been done directly in the constructor.
+With `render()` the playlist is output in the local state of `this.state.song` in a table. Here the method `map()` is used to split the individual elements of the list according to their ID (for the key attribute `key`), the title, the artist and the genre. With the handler `handleRemoveSong()` a button `Remove` was added to each song to remove individual songs from the playlist. The song is passed to the `handleRemoveSong()` handler and removed with the `filter` method, with which all songs are passed to `const songs` as soon as the button is pressed. The new complete list of `songs` is then updated with `this.setState` and rendered without the removed song.
+
+
+
+
+
+
+
 
 
 
