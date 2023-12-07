@@ -26,6 +26,7 @@
    - 9.1. Pass arguments to event handler
  10. Life cycle of components
    - 10.1. Mounting
+   - 10.2. Updating
 
  
 -------------------------------------------------------
@@ -1222,7 +1223,7 @@ In the connector, the complete array is passed to the local state variable `song
 With `render()` the playlist is output in the local state of `this.state.song` in a table. Here the method `map()` is used to split the individual elements of the list according to their ID (for the key attribute `key`), the title, the artist and the genre. With the handler `handleRemoveSong()` a button `Remove` was added to each song to remove individual songs from the playlist. The song is passed to the `handleRemoveSong()` handler and removed with the `filter` method, with which all songs are passed to `const songs` as soon as the button is pressed. The new complete list of `songs` is then updated with `this.setState` and rendered without the removed song.
 
 
-
+### 10.2. Updating
 
 
 
