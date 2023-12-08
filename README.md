@@ -28,6 +28,7 @@
    - 10.1. Mounting
    - 10.2. Updating
    - 10.3. Unmounting
+   - 10.4. React.Fragment
 
  
 -------------------------------------------------------
@@ -1294,3 +1295,62 @@ The `componentDidUpdate()` method can be used to add a page effect, for example 
 
 
 ### 10.3. Unmounting
+In this cycle, the component is removed from the DOM. If a component is to be removed, the build-in method `componentWillUnmount()` is called.
+
+Example: 
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_16) --> **Examples/Part_16/src/App.js** & **Examples/Part_16/src/Songs.jsx** 
+
+  ```
+   ...
+   class App extends Component {
+     constructor(props) {
+       super(props);
+       this.state = { show: true };
+       console.log("App - constructor() is called");
+   }
+   ...
+     delSongs = () => {
+       this.setState({ show: false });
+     };
+     render() {
+       let mysongs;
+       if (this.state.show) {
+           mysongs = <Songs playlist = { "Bella" } />;
+       }
+       console.log("App - render()");
+       return ( 
+         <div> { mysongs }
+           <button onClick = { this.delSongs } > 
+             Remove songs component
+           </button>
+           <button onClick = { this.addSongs } > 
+             Adding songs component
+           </button>
+         </div>
+       );
+     }
+
+   }  
+   ... 
+  ```
+
+Songs.jsx:
+  ```
+   ...
+    componentWillUnmount() {
+      console.log("Songs - componentWillUnmount() is called");
+    } 
+   ... 
+  ```
+
+ <img src="images/React_part_16.PNG" width="900">
+
+Here, an additional button and the property `show` were added to the class component `App` in the local state. If the value of `show` is set to `false`, the child component `Songs` can be hidden and thus removed from the DOM, which is where `componentWillUnmount()` in the class component `Songs` comes into play. To show the playlist again, another button can be set up which sets `show` with `setState` back to `true` and is thus mounted in the DOM again.
+
+##### Overview of the life cycle of React components
+
+ <img src="images/React-Lifecycle.png" width="700">
+
+
+### 10.4. React.Fragment
