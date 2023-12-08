@@ -27,6 +27,7 @@
  10. Life cycle of components
    - 10.1. Mounting
    - 10.2. Updating
+   - 10.3. Unmounting
 
  
 -------------------------------------------------------
@@ -342,7 +343,9 @@ or comments can be noted as in JavaScript, but only at the end of the line:
 ### 5.3. Case distinction
 `if-else` cannot be used within JSX. The tenary operator `?:` (`{i === 1?`true`:`false`}`) can be used for this purpose. A case distinction can be useful if an attribute or element is to be set depending on the condition.
 
-Example: [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_4) --> **Examples/Part_4/...** 
+Example: 
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_4) --> **Examples/Part_4/...** 
 
   ```
    import React from 'react';
@@ -1138,7 +1141,7 @@ This example now refers to the music playlist [Complete Code: Part_14/src/songLi
            console.log("App - render()");
            return (
              <div> { " " } 
-               <Songs playlist = "MyPlaylist" />
+               <Songs playlist = "Bella" />
              </div>
            );
        }
@@ -1224,12 +1227,70 @@ With `render()` the playlist is output in the local state of `this.state.song` i
 
 
 ### 10.2. Updating
+A component is always updated when the props or the local state change. React offers five build-in methods for this, which are called in the following order when a component is renewed:
+
+ 1. `getDerivedStateFromProps()`
+ 2. `shouldComponentUpdate()`
+ 3. `render()`
+ 4. `getSnapshotBeforeUpdate()`
+ 5. `componentDidUpdate()`
+
+Here too, as with mounting, the `render()` method is always required and called. The other methods are optional and are called as soon as they are defined.
+
+#### `getDerivedStateFromProps()`
+This is the first method that is called when a component has been updated. The meaning of this cycle is the same as for mounting.
+
+#### `shouldComponentUpdate()`
+This method can be used to specify whether the component should be redrawn after a `setState` call. The default value `true` ensures that the component is always redrawn after a `setState` call. If this should not be the case, `shouldComponentUpdate()` can be implemented and `false` returned. This function receives the current props and the new local state as arguments. 
+
+Example: 
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/Songs.jsx** 
+
+  ```
+   ...
+    shouldComponentUpdate(newProps, newState) {
+      console.log("Songs - shouldComponentUpdate() is called");
+      if (newState.songs.length === 0) {
+        alert(
+          newProps.playlist +
+            "'s playlist: The last element is deleted from the list!"
+        );
+      }
+      return true;
+    }   
+   ...  
+  ```
+
+ <img src="images/React_part_15.PNG" width="900">
+
+The `shouldComponentUpdate()` method has been implemented in the `Songs` class. With `newState.songs.length` it is checked whether the list of songs is empty. If this is the case, a message is output. `shouldComponentUpdate()` does not yet update the display, although the list is already empty.
+
+### `render()`
+The `render()` method is called when the component has been updated in order to incorporate the change into the DOM.
+
+### `getSnapshotBeforeUpdate()` and `componentDidUpdate()`
+This method can be used to add a hook that is executed after the `render` method has been called, but before the change is displayed. Here you have access to the props and the local state before the update, so it is possible to check the old values again before the new values are displayed. The methods must return a value or `null`. The return value is then available in the `componentDidUpdate()` method. The `getSnapshotBeforeUpdate()` method is not executed if the `shouldComponentUpdate()` method is `false`. 
+The `componentDidUpdate()` method can be used to add a page effect, for example to make a server request for data. The values of the previous prop and the previous local state are available as arguments. The `getSnapshotBeforeUpdate()` method should always be called together with `componentDidUpdate()`, otherwise an error message will be displayed.
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/Songs.jsx** 
+
+  ```
+   ...
+    getSnapshotBeforeUpdate(oldProps, oldState) {
+      console.log("Songs - getSnapShotBeforeUpdate() is called");
+      return Date.now();
+    }
+
+    componentDidUpdate(oldProps, oldState, snapshot) {
+      console.log("Songs - componentDidUpdate() is called");
+      console.log("of getSnapShotBeforeUpdate: " + snapshot);
+      // here you could make a server request for data
+    }   
+   ...  
+  ```
+
+ <img src="images/React_part_15-2.PNG" width="900">
 
 
-
-
-
-
-
-
-
+### 10.3. Unmounting
