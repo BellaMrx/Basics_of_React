@@ -35,6 +35,9 @@
    - 11.3. Access to the context with useContext
    - 11.4. Custom Hooks
  12. CSS and React
+   - 12.1. Styling with the `style` attribute
+   - 12.2. Use CSS classes in JSX
+   - 12.3. CSS modules in React
 
  
 -------------------------------------------------------
@@ -1664,15 +1667,256 @@ The use of the custom hook, here again in the `App` component of *App.js*, is qu
    export default App;
   ```
 
- <img src="images/React_part_21.png" width="500">
+ <img src="images/React_part_21.png" width="400">
 
 
 ## 12. CSS and React
+React does not make any special specifications, but there are various options in React. 
+
+In the example, a playlist is styled, which is the same playlist from the previous examples, but this time using the Hook API and the function component instead of the class component:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_22) --> **Examples/Part_22/src/Songs.jsx** 
+
+  ```
+  import React, { Component } from "react";
+  import { getPlaylist } from "./songList";
+
+  const Songs = (props) => {
+    const [songs, setSongs] = React.useState(getPlaylist());
+
+    const handleRemoveSong = (song) => {
+      const newsongs = songs.filter((s) => s._id !== song._id);
+      setSongs(newsongs);
+    };
+
+    return (
+      <React.Fragment >
+        <h2>{props.playlist}s Playlist</h2>
+        <table
+          style={{
+            width: "80%",
+            backgroundColor: "greenyellow",
+            textAlign: "left",
+            padding: "3px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Interpreter</th>
+              <th>Genre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {songs.map((song) => (
+              <tr key={song._id} style={{ backgroundColor: "white" }}>
+                <td>{song.song}</td>
+                <td>{song.interpreter}</td>
+                <td>{song.genre}</td>
+                <td>
+                  <button onClick={() => handleRemoveSong(song)}>
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </React.Fragment>
+    );
+  };
+  export default Songs;
+  ```
+The app component in the *App.js* is kept simple:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_22) --> **Examples/Part_22/src/App.js** 
+
+  ```
+  import React, { Component } from "react";
+  import Songs from "./Songs";
 
 
+  const App = () => {
+    return (
+      <React.Fragment >
+        <Songs playlist = "Bella" />
+      </React.Fragment>
+    );
+  };
+
+  export default App;
+  ```
+
+ <img src="images/React_part_22.png" width="900">
 
 
+### 12.1. Styling with the `style` attribute
+The easiest way to style a React component is to use the `style` attribute. This works slightly differently in React than in HTML, as it is a JavaScript object that is converted by React into a corresponding `style` specification. In JSX, instructions are set in curly brackets `{}`, and JavaScript objects are set in curly brackets as well, so in the following example the content of the `style` attribute is set between two curly brackets `{{}}`. The spelling of the CSS property must be noted in camel case notation (e.g. `text-align` becomes `textAlign`):
 
+  ```
+   ...
+      <React.Fragment >
+        <h2>{props.playlist}s Playlist</h2>
+        <table
+          style={{
+            width: "80%",
+            backgroundColor: "greenyellow",
+            textAlign: "left",
+            padding: "3px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Interpreter</th>
+              <th>Genre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {songs.map((song) => (
+              <tr key={song._id} style={{ backgroundColor: "white" }}>
+                <td>{song.song}</td>
+                <td>{song.interpreter}</td>
+                <td>{song.genre}</td>
+                <td>
+                  <button onClick={() => handleRemoveSong(song)}>
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </React.Fragment>
+   ...
+  ```
+
+The use of inline style should be used sparingly, as the code is unnecessarily bloated and restricts reusability. This can be improved somewhat by turning the inline style into a JavaScript object:
+
+  ```
+  ...
+  const mystyle = {
+    width: "80%",
+    backgroundColor: "greenyellow",
+    textAlign: "left",
+    padding: "3px",
+  };
+  
+  return (
+    <React.Fragment >
+      <h2>{props.playlist}'s Playlist</h2>
+      <table style={mystyle}>
+        <thead>
+          <tr>
+          ...
+    </React.Fragment>
+  ...
+  ```
+
+
+### 12.2. Use CSS classes in JSX
+Using the `class` attribute is a much better and cleaner thing to do in Raect. However, `class` cannot be used via JSX because it is a JavaScript keyword. Therefore, `className` must be used instead. To separate CSS cleanly from other code, a separate file should also be created here. When a new project is created with `create-react-app`, React creates the `App.css`. The following CSS code is now added to this *App.css*:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_22/src/App.css** 
+
+  ```
+  .playlist_table {
+      width: 80%;
+  }
+
+  .playlist_table th {
+      padding: 0.2em;
+      text-transform: uppercase;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      text-align: left;
+  }
+
+  .playlist_table tr:nth-child(even) {
+      background: lightgray;
+  }
+
+  .playlist_table td:nth-child(1) {
+      font-weight: bold;
+  }
+
+  .playlist_table td {
+      padding: 0.25em;
+  }
+
+  .playlist_table tr:hover {
+      background: rgb(212, 89, 85);
+      color: white;
+  }
+
+  .playlist_button {
+      background-color: darkgrey;
+      border: none;
+      color: white;
+      padding: 12px 35px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      -webkit-transition-duration: 0.4s;
+      /* Safari */
+      transition-duration: 0.4s;
+  }
+
+  .playlist_button_hover:hover {
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+  ```
+
+To include this file in *App.js*, it must be imported as follows:
+
+  ```
+   import "./App.css";
+  ```
+
+Now CSS can be used as usual to style the component. Now comes the code snippet of the *Songs.jsx* file in which the table and button are styled with the *App.css* file:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_22/src/Songs.jsx** 
+
+  ```
+  ...
+    <React.Fragment >
+      <h2>{props.playlist}'s Playlist</h2>
+      <table className="playlist_table">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Interpreter</th>
+            <th>Genre</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {songs.map((song) => (
+            <tr key={song._id}>
+              <td>{song.song}</td>
+              <td>{song.interpreter}</td>
+              <td>{song.genre}</td>
+              <td>
+                <button onClick={() => handleRemoveSong(song)} className="playlist_button playlist_button_hover">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </React.Fragment>
+  ...
+  ```
+ <img src="images/React_part_23.jpg" width="900">
+
+
+### 12.3. CSS modules in React
 
 
 
