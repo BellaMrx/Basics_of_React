@@ -1354,3 +1354,38 @@ Here, an additional button and the property `show` were added to the class compo
 
 
 ### 10.4. React.Fragment
+With React, it must always be noted that a component only contains one root element. In the examples above, everything was written between a `div` element for several root elements, which is still manageable for small projects. For larger projects, however, many nested containers are built inside each other in order to observe the one root element rule. React has offered *fragments* since version 16.2. These are containers that are not rendered into the DOM by React. With fragments it is possible to group elements without having to insert an explicit container element. The fragments can be used in two ways:
+
+Long notation:
+  ```
+   <React.Fragment >...</React.Fragment>
+  ```
+
+Short notation:
+  ```
+   < >...</>
+  ```
+
+Example:
+  ```
+  ...
+   render() {
+    ...
+     return (
+      <React.Fragment >   // or <>
+        { mysongs }
+        <button onClick = { this.delSongs } > 
+          Remove songs component
+        </button>
+        <h2>...</h2>
+        <p>...</p>
+      </React.Fragment>   // or </>
+      );
+   }
+  ...
+  ```
+
+#### Context API
+The Context API should also be mentioned in connection with class components. Simply put, React's Context API provides global variables independently of the component tree. This reduces the passing of values in the component tree via props, for example, which can significantly increase the complexity of the app. The context API with global variables only makes sense if the information is used in many places in the app. The Context API provides a range of methods and components for this purpose. More on this in the next chapter *React-Hooks-API*.
+
+
