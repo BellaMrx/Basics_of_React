@@ -38,6 +38,7 @@
    - 12.1. Styling with the `style` attribute
    - 12.2. Use CSS classes in JSX
    - 12.3. CSS modules in React
+   - 12.4. CSS in JavaScript - Styled Components
 
  
 -------------------------------------------------------
@@ -1819,7 +1820,7 @@ The use of inline style should be used sparingly, as the code is unnecessarily b
 ### 12.2. Use CSS classes in JSX
 Using the `class` attribute is a much better and cleaner thing to do in Raect. However, `class` cannot be used via JSX because it is a JavaScript keyword. Therefore, `className` must be used instead. To separate CSS cleanly from other code, a separate file should also be created here. When a new project is created with `create-react-app`, React creates the `App.css`. The following CSS code is now added to this *App.css*:
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_22/src/App.css** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_23/src/App.css** 
 
   ```
   .playlist_table {
@@ -1880,7 +1881,7 @@ To include this file in *App.js*, it must be imported as follows:
 
 Now CSS can be used as usual to style the component. Now comes the code snippet of the *Songs.jsx* file in which the table and button are styled with the *App.css* file:
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_22/src/Songs.jsx** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_23) --> **Examples/Part_23/src/Songs.jsx** 
 
   ```
   ...
@@ -1917,7 +1918,24 @@ Now CSS can be used as usual to style the component. Now comes the code snippet 
 
 
 ### 12.3. CSS modules in React
+Standard-compliant CSS can also be used here, but the CSS modules are only valid for the current component. In order for Css modules to be imported into a component, the module must end with *module.css*. In relation to the previous example, the *App.css* only needs to be renamed to *App.module.css*, so the CSS modules have been activated.
 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_24) --> **Examples/Part_24/src** 
+
+In the component file *Songs.jsx*, the file *App.module.css* must now be imported as a JavaScript object as follows:
+  ```
+   import styles from "./App.module.css";
+  ```
+
+The name `styles` can be chosen freely. Instead of noting the `className`, the CSS class can be accessed directly via the `styles` object:
+  ```
+   <table className={styles.playlist_table}>
+  ```
+
+The advantage of CSS modules is that these modules are only available within the component into which they were imported.
+
+
+### 12.4. CSS in JavaScript - Styled Components
 
 
 
