@@ -39,6 +39,8 @@
    - 12.2. Use CSS classes in JSX
    - 12.3. CSS modules in React
    - 12.4. CSS in JavaScript - Styled Components
+ 13. Forms in React
+  
 
  
 -------------------------------------------------------
@@ -1920,7 +1922,7 @@ Now CSS can be used as usual to style the component. Now comes the code snippet 
 ### 12.3. CSS modules in React
 Standard-compliant CSS can also be used here, but the CSS modules are only valid for the current component. In order for Css modules to be imported into a component, the module must end with *module.css*. In relation to the previous example, the *App.css* only needs to be renamed to *App.module.css*, so the CSS modules have been activated.
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_24) --> **Examples/Part_24/src** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_24) --> **Examples/Part_24/src** 
 
 In the component file *Songs.jsx*, the file *App.module.css* must now be imported as a JavaScript object as follows:
   ```
@@ -1936,6 +1938,133 @@ The advantage of CSS modules is that these modules are only available within the
 
 
 ### 12.4. CSS in JavaScript - Styled Components
+With Styled Components, there is another way to use CSS in React. This is a real CSS JavaScript approach without an intermediate CSS file. However, a tool must be installed first. This can be done in the command line as follows:
+  ```
+   $ npm install styled-components
+  ```
+
+Once it has been installed, it is imported into the React application as follows:
+  ```
+   import styled from "styled-components";
+  ```
+
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_25) --> **Examples/Part_25/src** 
+
+**Songs.jsx**
+  ```
+  ...
+  const Button = styled.button`
+    background-color: darkgrey;
+    border: none;
+    color: white;
+    padding: 12px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    :hover {
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    }
+  `;
+
+  const StyledTable = styled.table`
+    width: ${(props) => (props.width ? props.width : "80%")};
+    th {
+      padding: 0.5em;
+      text-transform: uppercase;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background: lightgray;
+    }
+    td:nth-child(1) {
+      font-weight: bold;
+    }
+    td {
+      padding: 0.5em;
+    }
+    tr:hover {
+      background: rgb(212, 89, 85);
+      color: white;
+    }
+  `;
+  ...
+  ```
+
+Template strings and functions are used here. Everything between the backticks is considered an argument, and the `styled` object is used to access the necessary elements (`styled.button`, `styled-table`). By using `const StyledTable = styled.table`, the Styled Components creates a new table component and assigns it the CSS property defined in the template literal.
+
+**Songs.jsx**
+  ```
+  ...
+  <React.Fragment>
+        <h2>{props.playlist}'s Playlist</h2>
+        <StyledTable width="95%">
+          <thead>
+            <tr>
+              <th>Song</th>
+              <th>Interpreter</th>
+              <th>Genre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {songs.map((song) => (
+              <tr key={song._id}>
+                <td>{song.song}</td>
+                <td>{song.interpreter}</td>
+                <td>{song.genre}</td>
+                <td style={{ textAlign: "center" }}>
+                  <Button onClick={() => handleRemoveSong(song)}>
+                    Remove
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </StyledTable>
+      </React.Fragment>
+  ...
+  ```
+
+Access via the props is also possible in a styled component. To do this, a function must be called in the template string, which receives the props as the first parameter:
+  ```
+  ...
+    <StyledTable width="95%">
+     ...
+    </StyledTable> 
+  ...
+  ```
+
+Here, the width of the table is determined with the 'width' prop instead of specifying a fixed width in the styled components. This can be used with an inline function as follows:
+  ```
+  ...
+  const StyledTable = styled.table`
+    width: ${(props) => (props.width ? props.width : "80%")};
+  ...
+  `;
+  ...
+  ```
+
+Styled components are not the only implementation of CSS-in-JS concepts. More information on this can be found here [styled components](https://styled-components.com/docs/basics). 
+
+
+## 13. Forms in React
+
+
+
+
+
+
+
+
+
+
 
 
 
