@@ -29,6 +29,12 @@
    - 10.2. Updating
    - 10.3. Unmounting
    - 10.4. React.Fragment
+ 11. The Raect-Hooks-API
+   - 11.1. Local state in function components with useState
+   - 11.2. The component lifecycle with useEffect
+   - 11.3. Access to the context with useContext
+   - 11.4. Custom Hooks
+ 12. CSS and React
 
  
 -------------------------------------------------------
@@ -1387,5 +1393,287 @@ Example:
 
 #### Context API
 The Context API should also be mentioned in connection with class components. Simply put, React's Context API provides global variables independently of the component tree. This reduces the passing of values in the component tree via props, for example, which can significantly increase the complexity of the app. The context API with global variables only makes sense if the information is used in many places in the app. The Context API provides a range of methods and components for this purpose. More on this in the next chapter *React-Hooks-API*.
+
+
+## 11. The Raect-Hooks-API
+With version 16.8. the *React-Hooks-API* was introduced in React. With this API, it is possible to use a local state and other React (life cycle) functions in function components that could previously only be used in class components. By introducing the Hooks API, the function components are favored over the class components when developing React applications. The React Hooks API is simpler, making functional components easier to understand overall and not having the complexity of 'this' within class components. It is also possible to develop applications without class components and lifecycle hooks using the React Hooks API.
+
+Hook functions all begin with the prefix `use`, followed by the actual identifier of the hook. These hook functions cannot be used in class components. The hooks can only be used at the top level in the function component, i.e. not within loops, `if` queries or functions that are not hooks. The Hooks API offers various `use` functions, these are the three most important ones: 
+
+- `useState`: The state hook is used to implement the local state within a function component. 
+- `useEffect`: The effect hook can be used to emulate the lifecycle methods. This can be used to react to the lifecycle such as attaching, changing or detaching a component in the DOM.
+- `useContext`: The context hook provides a way of storing objects in a central location and accessing them from another location.
+
+There are other functions of the Hooks API such as `useReducer`, `useCallback`, `useMemo`, `useRef`, `useImperativeHandle`, `useLayoutEffect` and `useDebugValue`. It is also possible to implement your own hooks.
+
+
+### 11.1. Local state in function components with useState
+The most important function is probably the `useState` function. This means that a local state can now also be created and managed for function components. The following example shows the simple use of `useState`, for demonstration purposes everything is in one file, but in practice each function component should be used in its own file:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_17) --> **Examples/Part_17/src/App.js** 
+
+  ```
+  ...
+   function App() {
+     return ( 
+       <React.Fragment >
+         <h1> Demonstration </h1>
+        <Simple titel={"The use of useState"} />
+       </React.Fragment>
+     );
+   }
+
+   function Simple(props) {
+     const [counter, setCounter] = React.useState(0);
+
+     return ( 
+       <React.Fragment >
+         <h2> { props.titel } </h2>
+         <p> The button was clicked {counter}x! </p>
+         <button onClick = {
+             () => setCounter(counter + 1) } > Push me </button>
+       </React.Fragment>
+     );
+   }
+  ...
+  ```
+
+Here you can see how the props and the local state can be used in the `Simple` function component. The `useState` function returns an array that is split into two constants using the destructuring assignment. The first entry `counter` is the current value of the local state, which is set to the initial value during the first rendering and which is passed as a parameter within the `useState` hook (here `0`). The second entry (here `setCounter`) is a function, also called a setter function, with which this local state can be changed. Each change to the local state with this function ensures that the component is resent with the changes. Any data type such as string, Boolean, array or objects can be used as an argument for `useState`.
+
+ <img src="images/React_part_17.png" width="500">
+
+A callback function can also be used as a setter function (here `setCounter`), which then returns the current state of the local state. This can be useful when working with asynchronous code:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_18) --> **Examples/Part_18/src/App.js** 
+
+  ```
+  ...
+   function Simple(props) {
+     const [counter, setCounter] = React.useState(0);
+
+     function handleClick() {
+       setCounter(counter + 1);
+     }
+
+     return ( 
+       <React.Fragment >
+         <h2> { props.titel } </h2>
+         <p> The button was clicked {counter}x! </p >
+         <button onClick = { handleClick } > Push me </button>
+       </React.Fragment>
+     );
+   }
+  ...
+  ```
+
+It is also possible to use several hooks in one function component:
+
+  ```
+  ...
+   function Simple(props) {
+     const [counter, setCounter] = React.useState(0);
+     const [name, setName] = React.useState('Bella Mrx'); 
+   }
+  ...
+  ```
+
+### 11.2. The component lifecycle with useEffect
+This function is an alternative to the lifecycle methods of class components `componentDidMount`, `componentDidUpdate` and `componentWillUnmount`. The `componentDidMount` method can be used to load data from a server or simply set timers, for example. However, the possibilities with the effect hook are limited, as such a side effect must not occur when rendering a component, the effect hook is always executed after rendering. The syntax of the `useEffect` hook is as follows:
+
+  ```
+   useEffect(callback, dependencyArray)
+  ```
+
+The page effect to be executed is `callback`. The `dependencyArray` can have the following values:
+ - No value: Always execute.
+ - `[]` : Execute once at component start.
+ - `[x]` : Execute only if `x` has changed.
+
+Example:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_19) --> **Examples/Part_19/src/App.js** 
+
+  ```
+  ...
+   import React, { useEffect } from "react";
+   ...
+   function Simple(props) {
+       const [counter, setCounter] = React.useState(0);
+
+       useEffect(() => {
+           const interval = setInterval(() => {
+               setCounter(counter + 1);
+           }, 1000);
+           return () => clearInterval(interval);
+       }, [counter]);
+
+       return ( 
+         <React.Fragment >
+           <h2 > { props.titel } </h2>
+           <p> The side effect was { counter }x executed! </p>
+         </React.Fragment>
+       );
+   }
+  ...
+  ```
+
+ <img src="images/React_part_19.png" width="500">
+
+Here, the function component `Simple` is created with the effect hook. Instead of pressing a button every time, a `setInterval` has been set, which is called every second and changes the local state (here `counter`) with the setter (here `setCounter`), thereby causing the component to be re-rendered. 
+In relation to the life cycle of a component, this `useEffect` hook corresponds to a mount with `componentDidMount` and an update `componentDidUpdate`. As an additional function can optionally be returned here with `return`, this corresponds to the remount cycle with `componentWillUnmount`.
+
+
+### 11.3. Access to the context with useContext
+This allows the values to be made available to the React application independently of the component tree (in simple terms: global variables) and thus reduce the props. The Context API is a simple way to provide data to the component tree. However, a context should only be used if certain information is required in many places in the application.
+With `useContext` you now also have access to the `Context` object, which can be created with the `createContext` function. The return value is a reference to the value of the context, which can then be read out within the component. 
+
+Example:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_20) --> **Examples/Part_20/src/App.js** 
+
+  ```
+  ...
+   const appContext = React.createContext();
+
+   const App = () => {
+       var user = {
+           nickname: "BellaMrx",
+           name: "Bella Mrx",
+           email: "contact@book-of-coding.com",
+           private: true,
+       };
+       return (
+         <appContext.Provider value = { user } >
+           <React.Fragment >
+             <h1> Demonstration of useContext </h1>
+             <Copyright />
+             <Status />
+           </React.Fragment>{" "} 
+         </appContext.Provider>
+       );
+   }
+
+   const Copyright = () => {
+       const user = React.useContext(appContext);
+       return ( 
+         <React.Fragment >
+           <footer> © <a href = { "mailto:" + user.email } >
+             { user.name } </a>
+           </footer> 
+         </React.Fragment>
+       );
+   }
+
+   const Status = () => {
+     const user = React.useContext(appContext);
+     return ( 
+       <React.Fragment >
+         <p> { user.nickname + " " } is online { " " }
+               { user.private === true 
+                  ? ( <small> { "Name:Hidden" } </small> )
+                  : ( <small> { user.name } </small> ) } 
+         </p>
+       </React.Fragment>
+     );
+   }
+  ...
+  ```
+
+ <img src="images/React_part_20.png" width="500">
+
+Before a context can be used, such an object must first be created with `createContext()`. In practice, this is usually done in a separate file, which must then also be exported via `export default`.
+
+  ```
+   const appContext = React.createContext(); 
+  ```
+
+The context is integrated via the `provider component`, in which the context for the elements in the component tree is made available. For the data in the context, some values were placed in `user` and these were transferred to the provider as a `value` prop.
+
+  ```
+  ...
+      <appContext.Provider value = { user } >
+       ...
+      </appContext.Provider>
+  ...
+  ```
+
+All subsequent child and sub-child elements now have access to `user` in the same way as to a prop value. In the function component, the `useContext` hook must now be ejected and can access the values of the context as with the props.
+
+  ```
+  ...
+   const Copyright = () => {
+       const user = React.useContext(appContext);
+       return ( 
+         <React.Fragment >
+           <footer> © <a href = { "mailto:" + user.email } >
+             { user.name } </a>
+           </footer> 
+         </React.Fragment>
+       );
+   }
+  ...
+  ```
+
+If the value of the context in the nearest provider is changed, the `useContext` hook triggers a rendering of the component with the current data.
+
+
+### 11.4. Custom Hooks
+This makes it possible to create your own custom hook using the hooks provided by React. In practice, these should be saved in a separate file and then exported. The `use` naming convention should also be used when naming your own hooks. Such hooks are useful if similar logic is always to be used in several components.
+
+In the next example, a counter component with a timer is created, where the alphabet from a to z is to be output:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_21) --> **Examples/Part_21/src/useAlphaCounter.js** 
+
+  ```
+   import React, { useState, useEffect } from "react";
+
+   function useAlphaCounter(speed = 1000) {
+       const [counter, setCounter] = useState(0);
+       useEffect(() => {
+           const interval = setInterval(() => {
+               if (counter >= 25) setCounter(counter - 25);
+               else setCounter(counter + 1);
+           }, speed);
+           return () => clearInterval(interval);
+       }, [counter]);
+       return String.fromCharCode(97 + counter);
+   }
+   export default useAlphaCounter;
+  ```
+
+Here, the counting interval is set to 0 to 25 with `useEffect` and then repeated from the beginning. The speed of the interval can also be optionally specified via the user-defined hook `useAlphaCounter()`. If no interval is used, this is 1000ms by default. The value is then added to 97 as the return value and returned as a letter with `String.formCharCode`. More complex hooks often work with several state values, in which case an array or object can also be used as the return value.
+
+The use of the custom hook, here again in the `App` component of *App.js*, is quite similar to the basic hook:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_21) --> **Examples/Part_21/src/App.js** 
+
+  ```
+   import React from "react";
+   import useAlphaCounter from "./useAlphaCounter";
+
+   function App() {
+       const counter_1 = useAlphaCounter();
+       const counter_2 = useAlphaCounter(500);
+       return ( 
+         <React.Fragment >
+           <h1 > Demonstration </h1>
+           <p> { counter_1 } { counter_2 } </p>
+         </React.Fragment>
+       );
+   }
+   export default App;
+  ```
+
+ <img src="images/React_part_21.png" width="500">
+
+
+## 12. CSS and React
+
+
+
+
+
+
+
 
 
