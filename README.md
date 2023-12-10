@@ -24,6 +24,7 @@
     - 8.2. Children props
  9. Events and their handlers
     - 9.1. Pass arguments to event handler
+    
  10. Life cycle of components
     - 10.1. Mounting
     - 10.2. Updating
