@@ -39,6 +39,10 @@
    - 12.2. Use CSS classes in JSX
    - 12.3. CSS modules in React
    - 12.4. CSS in JavaScript - Styled Components
+ 13. Forms in React
+   - 13.1. Controlled Components
+   - 13.2. Uncontrolled Components
+   - 13.3. Accessing the native DOM via a reference
   
  
 -------------------------------------------------------
@@ -2053,6 +2057,147 @@ Styled components are not the only implementation of CSS-in-JS concepts. More in
 
 
 
+## 13. Forms in React
+Form elements can also be used in React to interact with users. In React, the component itself is responsible for responding to it. In React, form handling is done via the so-called *Controlled Components* and *Uncontrolled Components*.
+
+
+### 13.1. Controlled Components
+When a character entry is made in a single-line text input field, the component reacts to an event. The new value is determined using an event handler and the value is set to the state of the component using a function. Calling the function also re-renders the component in React. This applies not only to the `input` element, but also to `<option>` and `<textarea>`.
+In order to make the component a controlled component, a `value` attribute must be set. Once the `value` attribute is set, the component is called a controlled component in React. Here you now have to take care of synchronizing the React state of the form field:
+
+  ```
+   <input type='text' value={username} />
+  ```
+
+This `value` attribute makes the difference between a controlled and uncontrolled component. The same applies to `<textarea>` and `<select>`. In addition, for `<select>` the `value` attribute is an array. The value of the `value` attribute must be a string.
+
+| HTML element                | Attribute |
+| --------------------------- | --------- |
+| `<input>`                   | `value`   |
+| `<input>` (radio, checkbox) | `checked` |
+| `<textarea>`                | `value`   |
+| `<select>`                  | `value`   |
+| `<option>`                  | `value`   |
+
+Once the attribute has been set for a controlled component, the corresponding code must also be implemented in the component. If no further precautions are taken for the line `<input type='text' value={username} />` with the `value` attribute, React will report with a warning that a `value` value does exist but an EventHandler for `onChange` is missing.
+For the change, the `onChange` event must be handled in order to then transfer it to the React state. The `onChange` event is always thrown when one of the `value`, `checked` or `selected` attributes has changed. In React, `<input type="text"/>` is thrown for single-line text and `<textarea>` is thrown after each new character input for multi-line text. The new value can then be queried in the event handler with `target.value` or `target.selected`.
+
+An example with a controlled component, with a single-line input field:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_26) --> **Examples/Part_26/src/Login.jsx** 
+
+  ```
+  ...
+   const Login = () => {
+       const [username, setUsername] = React.useState("");
+
+       const submitForm = (e) => {
+           e.preventDefault();
+           console.log(username);
+       };
+
+       return ( 
+         <form method = "post" onSubmit = { submitForm } >
+           <p> The username is: { username } </p>
+           <p> < input type = "text"
+                 value = { username }
+                 onChange = {
+                    (e) => setUsername(e.target.value) }
+               />
+               <input type = "submit" />
+             </p>
+         </form>
+       );
+   };
+  ...
+  ```
+ <img src="images/React_part_26.png" width="400">
+
+By using the attribute `value`, `checked` or `selected` it is possible to convert the component into a controlled component. This prevents changing the `value` attribute in the native DOM element and control is taken over by React or the programmer with the `onChange` event. Only by rendering the `value` attribute will the native DOM element be updated.
+
+
+### 13.2. Uncontrolled Components
+Reasons for using uncontrolled components are, for example, if you simply want to create static form elements that can then be processed on the server and do not require any interaction with React. The same example as with controlled components, but now with uncontrolled components:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_27) --> **Examples/Part_27/src/Login.jsx** 
+
+  ```
+  ...
+   const Login = () => {
+     const [username, setUsername] = React.useState("");
+
+     const submitForm = (e) => {
+         e.preventDefault();
+         setUsername("Uncontrolled!");
+     };
+
+     return ( 
+       <form method = "post" onSubmit = { submitForm } >
+         <p> The username is: { username } </p>
+         <p>< input type = "text"
+              onChange = {
+                (e) => setUsername(e.target.value) }
+            />
+           <input type = "submit" />
+         </p>
+       </form>
+     );
+   };
+  ...
+  ```
+ <img src="images/React_part_27.png" width="400">
+
+The `value` attribute is missing here, but the example initially does exactly the same as the controlled component before. But there is a difference: While the data in a controlled component is handled by a React component, in an uncontrolled component the data is handled by the DOM. However, since a one-way data binding takes place here, the state `username` is updated in the example as soon as the `onChange` event is triggered on the text field. However, if the text field is changed somewhere else, as here with `setUsername("Uncontrolled!")`, after pressing the button it is demonstrated that the change no longer applies to the text field itself.
+
+If you want to pass an initial value to an uncontrolled component without immediately turning it into a controlled component with the `value` attribute, React offers the `defaultValue` attribute. For checkboxes and radioboxes there is the `defaultChecked` attribute:
+
+  ```
+   <input type="text" defaultValue = "Your name"
+     onChange = {
+      (e) => setUsername(e.target.value) }
+   />
+  ```
+
+
+### 13.3. Accessing the native DOM via a reference
+As a rule, React does not work directly with the native DOM elements; the information is first entered via a virtual DOM, and native elements are only created in the DOM when the components are rendered. But sometimes you want to access the native DOM directly, for example to call functions like `focus()` that are not supported by React. For such purposes, the `ref` attribute can be specified with a reference function. To do this, a hook must first be created with `useRef`. The returned object from `useRef` remains identical after all render cycles. However, a change to the object, in contrast to a state, does not lead to an update of the UI. The returned object has a `current` entry, which can be used to access all functions defined via the DOM API.
+
+The example shows access with the `ref` attribute to the uncontrolled component from the previous example:
+
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_28) --> **Examples/Part_28/src/Login.jsx** 
+
+  ```
+  ...
+   const Login = () => {
+     const inputValue = React.useRef();
+
+     const submitForm = (e) => {
+         e.preventDefault();
+         console.log(inputValue.current.value);
+     };
+     const setFocus = () => {
+         inputValue.current.focus();
+     };
+
+     return (
+       <form method = "post" onSubmit = { submitForm }>
+         <p> The username is: </p>{" "} 
+         <p><input type = "text" ref = { inputValue } />
+            <input type="submit" / > { " " }
+            <button onClick = { setFocus } > Set focus </button>
+         </p>{" "}
+       </form>
+     );
+   };
+  ...
+  ```
+ <img src="images/React_part_28.jpg" width="400">
+
+The `useRef` hook first creates a reference object that is always valid throughout the render cycle of the component. This hook is then passed in the `ref` attribute of the single-line text field. After rendering, you have a reference to the native HTML elements in the DOM via `current` and can then work with them. In the example, `inputValue.current.value` is used to determine the current value of the text field when the `Submit` button is pressed. By clicking the `Set focus` button, the callback function `setFocus` is called, and the focus is set on the input field with `inputValue.current.focus()`.
+
+Instead of a reference function, an ordinary callback function can also be passed to the `ref` attribute. However, this callback function is only called when the DOM element is created and destroyed again. This can be useful if you want to react accordingly when an element is created or destroyed.
+
+
 # The end
 This is just an introduction to **React**, there is much more to know about them. But these are already one of the most important topics that everyone should know.
 
@@ -2077,12 +2222,3 @@ Or just visit my GitHub profile, you can find all guides/tutorials there [BellaM
 Thanks for the attention.
 
 #### This is the end, beautiful friend... ;)
-
-
-
-
-
-
-
-
-
