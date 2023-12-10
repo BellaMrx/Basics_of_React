@@ -177,7 +177,7 @@ If you now change to the *my-project/src/* directory and open the *App.js* file 
 
 If you change this code as follows:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_1) --> **Examples/Part_1/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_1) --> **Examples/Part_1/src/App.js...** 
 
    ```
    import React from 'react';
@@ -231,7 +231,7 @@ The syntax of JSX is very similar to that of HTML. With JSX, the HTML is practic
 ### 5.1. Use JSX for the UI
 Here is a simple example of how flexibly JSX can be used:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_2) --> **Examples/Part_2/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_2) --> **Examples/Part_2/src/App.js...** 
 
   ```
    import React from 'react';
@@ -284,7 +284,7 @@ Instead of `Document.createElement`, `React.createElement` was used here, i.e. a
 
 Another example: 
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_3) --> **Examples/Part_3/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_3) --> **Examples/Part_3/src/App.js...** 
 
   ```
    import React from 'react';
@@ -356,7 +356,7 @@ or comments can be noted as in JavaScript, but only at the end of the line:
 
 Example: 
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_4) --> **Examples/Part_4/...** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_4) --> **Examples/Part_4/src/App.js...** 
 
   ```
    import React from 'react';
@@ -413,7 +413,7 @@ Here, the individual values of `values` are run through using `map()`, each plac
 
 A complete example with a list and JSX: 
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_5) --> **Examples/Part_5/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_5) --> **Examples/Part_5/src/App.js...** 
 
   ```
    import React from 'react';
@@ -532,7 +532,7 @@ Here in the example the `<React.StrictMode>` mode was used, this is very helpful
 ### 7.1. Functional components
 A simple functional component:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6) --> **Examples/Part_6/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6) --> **Examples/Part_6/src/App.js...** 
 
   ```
    import React from 'react';
@@ -580,7 +580,7 @@ In the app component, everything was packed between `<div>` and `</div>`, if thi
 
 The list example from [Part_5](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_5) could then look like this as a function component:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) --> **Examples/Part_7/...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) --> **Examples/Part_7/src/App.js...** 
 
   ```
    import React from 'react';
@@ -650,7 +650,7 @@ This example is the same as in [Part_7](https://github.com/BellaMrx/Basics_of_Re
 ### 7.2. Class components
 In the early days of React, class components were preferably used to create larger projects. Since the introduction of hooks in React, however, function components have also been used more and more frequently. 
 
-The first example shows the function component `InputT` (from [Part_6](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6)) as a class component that is outsourced to a separate file:
+The first example shows the function component `InputT` (from [Part_6/src/App.js](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_6)) as a class component that is outsourced to a separate file:
 
 To convert a function component into a class component, the following is necessary:
 1. the components are extended by the React-`Compoment` class with `extends Component`.
@@ -658,7 +658,7 @@ To convert a function component into a class component, the following is necessa
 3. the content of the component is written inside the `render()` method.
 4. if `props` is used, `this.props` is used
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/InputT.js...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/src/InputT.js...** 
 
   ```
    import React, { Component } from 'react';
@@ -681,7 +681,7 @@ Various methods can also be added to the class, but the most important and only 
 
 Only the class components of the *InputT.js* file now need to be imported into *App.js*:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/App.js...**
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_8) --> **Examples/Part_8/Src/App.js...**
 
   ```
    import React from 'react';
@@ -711,7 +711,7 @@ Props are arguments that are passed to React components. They are always passed 
  
 In [Part_7](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_7) a global variable `recommendEbooks` was used, in practice the possibilities are limited. The more optimal solution would be to use *props*:
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_9) --> **Examples/Part_9/...** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_9) --> **Examples/Part_9/src/App.js...** 
 
   ```
    import React from 'react';
@@ -782,7 +782,7 @@ React components have a built-in state object that can store properties unique t
 
 This example demonstrates a counter that can be incremented and decremented within a simple class component with the identifier `Article`. Because the local state can only be used with the class component, it is necessary to create a class.
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/Article.jsx...** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/src/Article.jsx...** 
 
   ```
    import React from "react";
@@ -815,7 +815,7 @@ This example demonstrates a counter that can be incremented and decremented with
 
 The `state` object (here: `state.this`) is initialized in the constructor. The `state` object only has one property with `counter`, but any number of properties can be used. The *Article.jsx* file is saved in the */src* folder together with the *App.js*, which then looks like this:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/App.js...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_10) --> **Examples/Part_10/src/App.js...** 
 
   ```
    import React from "react";
@@ -856,7 +856,7 @@ As with the props, access is via `this` and then the `state` object, followed by
 ### 8.1. Changing the `state` object
 The only place where the individual properties of `this.state` can be set is in the constructor. To subsequently change the value of the `state` object, the `this.setState()` method must be used. If the value in a `state` object changes, the component is rendered according to the new value:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/src/Article.jsx...** 
 
   ```
    ...
@@ -949,7 +949,7 @@ If the property of a `state` object is to be changed by a component, the `setSta
 ### 8.2. Children props
 This example shows how child or sub-props can be transferred to the components and used:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/App.js...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/src/App.js...** 
 
   ```
    ...
@@ -967,7 +967,7 @@ This example shows how child or sub-props can be transferred to the components a
 
 To access the `h2` elements in the class components here, you can use the prop provided for this with `this.props.children`:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/Article.jsx...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_11) --> **Examples/Part_11/src/Article.jsx...** 
 
   ```
    ...
@@ -1012,7 +1012,7 @@ in React with JSX:
 
 A simple example, with a message box that is displayed as soon as the button is clicked:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_12) --> **Examples/Part_12...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_12) --> **Examples/Part_12/src/App.js...** 
 
   ```
    import React, { Component } from "react";
@@ -1043,7 +1043,7 @@ The special feature of `this` must be pointed out here. It is not typical for Re
 ### 9.1. Pass arguments to event handler
 If parameters are to be passed to the event handler, the `bind()` method or an (anonymous) arrow function can also be used:
 
- [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_13) --> **Examples/Part_13/App.js...** 
+ [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_13) --> **Examples/Part_13/src/App.js...** 
 
   ```
    import React, { Component } from "react";
@@ -1256,7 +1256,7 @@ This method can be used to specify whether the component should be redrawn after
 
 Example: 
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/Songs.jsx** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/src/Songs.jsx** 
 
   ```
    ...
@@ -1284,7 +1284,7 @@ The `render()` method is called when the component has been updated in order to 
 This method can be used to add a hook that is executed after the `render` method has been called, but before the change is displayed. Here you have access to the props and the local state before the update, so it is possible to check the old values again before the new values are displayed. The methods must return a value or `null`. The return value is then available in the `componentDidUpdate()` method. The `getSnapshotBeforeUpdate()` method is not executed if the `shouldComponentUpdate()` method is `false`. 
 The `componentDidUpdate()` method can be used to add a page effect, for example to make a server request for data. The values of the previous prop and the previous local state are available as arguments. The `getSnapshotBeforeUpdate()` method should always be called together with `componentDidUpdate()`, otherwise an error message will be displayed.
 
-[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/Songs.jsx** 
+[Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_15) --> **Examples/Part_15/src/Songs.jsx** 
 
   ```
    ...
@@ -2053,7 +2053,30 @@ Styled components are not the only implementation of CSS-in-JS concepts. More in
 
 
 
+# The end
+This is just an introduction to **React**, there is much more to know about them. But these are already one of the most important topics that everyone should know.
 
+If you don't know HTML, CSS or JavaScript yet, have a look here:
+  - [WebDevelopment Basics](https://github.com/BellaMrx/WebDevelopment_Basics) - Basics Guide for web developers
+  - [HTML Guide](https://github.com/BellaMrx/HTML_Guide) - Detailed guide about HTML5 (all basics for HTML)
+  - [HTML Cheat Sheets](https://github.com/BellaMrx/HTML_Cheat_Sheets) - All HTML5 elements and their attributes
+  - [CSS Guide](https://github.com/BellaMrx/CSS_Guide) - Detailed guide about CSS (Introduction to CSS, CSS Selectors, Inheritance and the cascade, CSS Box Model, CSS Positioning, Flexbox, Responsive Web Design, CSS Grid Layout, Styling with CSS, Testing and Organizing) 
+  - [Sass and SCSS Basic Guide](https://github.com/BellaMrx/Sass_and_SCSS) - An introduction to the CSS preprocessor Sass
+
+  **JavaScript Basics:**
+
+  1. [JS Introduction](https://github.com/BellaMrx/JS_introduction) - An introduction to JavaScript
+  2. [Arrays, functions, objects in JS](https://github.com/BellaMrx/Arrays_functions_objects_in_JS) - Introduction: Arrays, functions and objects in JavaScript
+  3. [DOM - Document Object Model](https://github.com/BellaMrx/DOM_Document-Object-Model) -  Introduction to the **DOM** and the **DOM** manipulation - Change web pages dynamically  
+  4. [Introduction to Web APIs](https://github.com/BellaMrx/JavaScript_Introduction-To-Web-APIs)
+  5. [Introduction to Ajax and jQuery](https://github.com/BellaMrx/JavaScript_Introduction_to_Ajax_and_jQuery)
+  6. You are here --> [Basics_of_React](https://github.com/BellaMrx/Basics_of_React)
+
+Or just visit my GitHub profile, you can find all guides/tutorials there [BellaMrx](https://github.com/BellaMrx)
+
+Thanks for the attention.
+
+#### This is the end, beautiful friend... ;)
 
 
 

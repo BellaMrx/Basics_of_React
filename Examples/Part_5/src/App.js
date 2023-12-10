@@ -28,7 +28,7 @@ function App() {
         <ul> {
           recommendEbooks.map(function(book) {
             return <li key = { book.id } > <a href = { book.url } >
-              { book.title } < /a> (by {book.author}) </li> ;
+              { book.title } </a> (by {book.author}) </li> ;
           })}
         </ul>
       </div>
