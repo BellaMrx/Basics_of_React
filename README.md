@@ -20,29 +20,29 @@
     - 7.2. Class components
     - 7.3. Props
  8. State management in React
-   - 8.1. Changing the `state` object
-   - 8.2. Children props
+    - 8.1. Changing the `state` object
+    - 8.2. Children props
  9. Events and their handlers
-   - 9.1. Pass arguments to event handler
+    - 9.1. Pass arguments to event handler
  10. Life cycle of components
-   - 10.1. Mounting
-   - 10.2. Updating
-   - 10.3. Unmounting
-   - 10.4. React.Fragment
+    - 10.1. Mounting
+    - 10.2. Updating
+    - 10.3. Unmounting
+    - 10.4. React.Fragment
  11. The Raect-Hooks-API
-   - 11.1. Local state in function components with useState
-   - 11.2. The component lifecycle with useEffect
-   - 11.3. Access to the context with useContext
-   - 11.4. Custom Hooks
+    - 11.1. Local state in function components with useState
+    - 11.2. The component lifecycle with useEffect
+    - 11.3. Access to the context with useContext
+    - 11.4. Custom Hooks
  12. CSS and React
-   - 12.1. Styling with the `style` attribute
-   - 12.2. Use CSS classes in JSX
-   - 12.3. CSS modules in React
-   - 12.4. CSS in JavaScript - Styled Components
+    - 12.1. Styling with the `style` attribute
+    - 12.2. Use CSS classes in JSX
+    - 12.3. CSS modules in React
+    - 12.4. CSS in JavaScript - Styled Components
  13. Forms in React
-   - 13.1. Controlled Components
-   - 13.2. Uncontrolled Components
-   - 13.3. Accessing the native DOM via a reference
+    - 13.1. Controlled Components
+    - 13.2. Uncontrolled Components
+    - 13.3. Accessing the native DOM via a reference
   
  
 -------------------------------------------------------
