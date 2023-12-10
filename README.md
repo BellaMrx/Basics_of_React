@@ -39,9 +39,7 @@
    - 12.2. Use CSS classes in JSX
    - 12.3. CSS modules in React
    - 12.4. CSS in JavaScript - Styled Components
- 13. Forms in React
   
-
  
 -------------------------------------------------------
 
@@ -2052,9 +2050,6 @@ Here, the width of the table is determined with the 'width' prop instead of spec
   ```
 
 Styled components are not the only implementation of CSS-in-JS concepts. More information on this can be found here [styled components](https://styled-components.com/docs/basics). 
-
-
-## 13. Forms in React
 
 
 
