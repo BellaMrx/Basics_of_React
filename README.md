@@ -1237,7 +1237,7 @@ And the code for the child component of `App`, the `Songs` component:
 
  <img src="images/React_part_14.PNG" width="900">
 
-In the connector, the complete array is passed to the local state variable `songs` using the imported function `getPlaylist()` from *songList.js*. In the built-in method `getDerivedStateFromProps()`, the passed prop `playlist` was passed to the state variable `playlist` of the same name for demonstration purposes. However, it is first checked whether the value has changed. This transfer of the prop to the local state could also have been done directly in the constructor.
+In the constructor, the complete array is passed to the local state variable `songs` using the imported function `getPlaylist()` from *songList.js*. In the built-in method `getDerivedStateFromProps()`, the passed prop `playlist` was passed to the state variable `playlist` of the same name for demonstration purposes. However, it is first checked whether the value has changed. This transfer of the prop to the local state could also have been done directly in the constructor.
 With `render()` the playlist is output in the local state of `this.state.song` in a table. Here the method `map()` is used to split the individual elements of the list according to their ID (for the key attribute `key`), the title, the artist and the genre. With the handler `handleRemoveSong()` a button `Remove` was added to each song to remove individual songs from the playlist. The song is passed to the `handleRemoveSong()` handler and removed with the `filter` method, with which all songs are passed to `const songs` as soon as the button is pressed. The new complete list of `songs` is then updated with `this.setState` and rendered without the removed song.
 
 
