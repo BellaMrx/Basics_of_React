@@ -495,7 +495,7 @@ The function `ReactDOM.render()` expects two arguments. The first element is the
    ); 
   ```
 
-The second argument is used to specify where the JSX element to be rendered is to be inserted. In this example, it is an element with `id = root"`, which is located in the HTML file *my-project/public/index.html*.
+The second argument is used to specify where the JSX element to be rendered is to be inserted. In this example, it is an element with `id = "root"`, which is located in the HTML file *my-project/public/index.html*.
 
   ```
    <!DOCTYPE html>
