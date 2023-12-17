@@ -1595,7 +1595,7 @@ Before a context can be used, such an object must first be created with `createC
    const appContext = React.createContext(); 
   ```
 
-The context is integrated via the `provider component`, in which the context for the elements in the component tree is made available. For the data in the context, some values were placed in `user` and these were transferred to the provider as a `value` prop.
+The context is integrated via the `provider` component, in which the context for the elements in the component tree is made available. For the data in the context, some values were placed in `user` and these were transferred to the provider as a `value` prop.
 
   ```
   ...
@@ -1922,7 +1922,7 @@ Now CSS can be used as usual to style the component. Now comes the code snippet 
 
 
 ### 12.3. CSS modules in React
-Standard-compliant CSS can also be used here, but the CSS modules are only valid for the current component. In order for Css modules to be imported into a component, the module must end with *module.css*. In relation to the previous example, the *App.css* only needs to be renamed to *App.module.css*, so the CSS modules have been activated.
+Standard-compliant CSS can also be used here, but the CSS modules are only valid for the current component. In order for CSS modules to be imported into a component, the module must end with *module.css*. In relation to the previous example, the *App.css* only needs to be renamed to *App.module.css*, so the CSS modules have been activated.
 
  [Complete Code](https://github.com/BellaMrx/Basics_of_React/tree/main/Examples/Part_24) --> **Examples/Part_24/src** 
 
