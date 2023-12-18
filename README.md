@@ -29,7 +29,7 @@
     - 10.2. Updating
     - 10.3. Unmounting
     - 10.4. React.Fragment
-11. The Raect-Hooks-API
+11. The React-Hooks-API
     - 11.1. Local state in function components with useState
     - 11.2. The component lifecycle with useEffect
     - 11.3. Access to the context with useContext
@@ -1403,7 +1403,7 @@ Example:
 The Context API should also be mentioned in connection with class components. Simply put, React's Context API provides global variables independently of the component tree. This reduces the passing of values in the component tree via props, for example, which can significantly increase the complexity of the app. The context API with global variables only makes sense if the information is used in many places in the app. The Context API provides a range of methods and components for this purpose. More on this in the next chapter *React-Hooks-API*.
 
 
-## 11. The Raect-Hooks-API
+## 11. The React-Hooks-API
 With version 16.8. the *React-Hooks-API* was introduced in React. With this API, it is possible to use a local state and other React (life cycle) functions in function components that could previously only be used in class components. By introducing the Hooks API, the function components are favored over the class components when developing React applications. The React Hooks API is simpler, making functional components easier to understand overall and not having the complexity of 'this' within class components. It is also possible to develop applications without class components and lifecycle hooks using the React Hooks API.
 
 Hook functions all begin with the prefix `use`, followed by the actual identifier of the hook. These hook functions cannot be used in class components. The hooks can only be used at the top level in the function component, i.e. not within loops, `if` queries or functions that are not hooks. The Hooks API offers various `use` functions, these are the three most important ones: 
